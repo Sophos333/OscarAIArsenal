@@ -1,0 +1,25 @@
+@inherits LayoutComponentBase
+
+<div class="@ThemeClass">
+    <div class="wt-page">
+        <header class="top-bar">
+            <div class="top-bar-left">
+                <img src="images/cross-badge.png"
+                     alt="Golden cross circuitry emblem"
+                     class="brand-logo" />
+                <span class="brand-title">Oscar AI Arsenal</span>
+            </div>
+        </header>
+
+        <main class="wt-main">
+            @Body
+        </main>
+    </div>
+</div>
+
+<script src="app-reveal.js"></script>
+
+@code {
+    // Hard–lock to dark mode for now
+    private string ThemeClass => "theme-dark";
+}
