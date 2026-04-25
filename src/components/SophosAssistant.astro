@@ -211,21 +211,42 @@
     return 'Oscar builds AI-powered data systems focused on automation, analytics, risk visibility, and decision clarity. Ask me about one of the featured systems.';
   };
 
-  const askSophos = (question) => {
-    const trimmed = question.trim();
+  const typeMessage = (text) => {
+  const bubble = document.createElement('div');
+  bubble.className = 'max-w-[85%] rounded-2xl bg-white/5 px-3 py-2 text-slate-200';
 
-    if (!trimmed) return;
+  messages.appendChild(bubble);
 
-    addMessage(trimmed, 'user');
-    showTyping();
+  let i = 0;
 
-    window.setTimeout(() => {
-      hideTyping();
-      addMessage(getAnswer(trimmed), 'bot');
-    }, 450);
-  };
+  const typing = setInterval(() => {
+    bubble.textContent += text.charAt(i);
+    i++;
 
-  toggle?.addEventListener('click', () => {
+    messages.scrollTop = messages.scrollHeight;
+
+    if (i >= text.length) {
+      clearInterval(typing);
+    }
+  }, 12);
+};
+
+const askSophos = (question) => {
+  const trimmed = question.trim();
+
+  if (!trimmed) return;
+
+  addMessage(trimmed, 'user');
+  showTyping();
+
+  const delay = 350 + Math.random() * 700;
+
+  window.setTimeout(() => {
+    hideTyping();
+    typeMessage(getAnswer(trimmed));
+  }, delay);
+};
+toggle?.addEventListener('click', () => {
     panel?.classList.toggle('hidden');
     panel?.classList.toggle('flex');
   });
@@ -318,3 +339,4 @@
     }
   }
 </style>
+
