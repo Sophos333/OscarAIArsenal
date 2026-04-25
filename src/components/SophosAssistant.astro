@@ -7,7 +7,7 @@
     id="sophos-toggle"
     type="button"
     class="sophos-pulse sophos-orb flex h-16 w-16 items-center justify-center rounded-full border border-cyan-400/30 bg-cyan-400 text-2xl shadow-2xl shadow-cyan-900/40 transition hover:bg-cyan-300"
-    aria-label="Open AI Arsenal assistant"
+    aria-label="Open AI Arsenal System Guide"
   >
     <img src="/images/cross-badge.png" alt="Sophos AI assistant" class="h-9 w-9 object-contain" />
   </button>
@@ -20,7 +20,7 @@
       <div class="flex items-center justify-between gap-4">
         <div>
           <p class="text-sm font-bold text-cyan-200">Sophos</p>
-          <p class="text-xs text-slate-400">AI Arsenal Assistant</p>
+          <p class="text-xs text-slate-400">AI Arsenal System Guide</p>
         </div>
 
         <button
@@ -113,13 +113,10 @@
   const promptButtons = document.querySelectorAll('.sophos-prompt');
 
   let lastIntent = '';
+  let lastTopicLabel = '';
 
   const normalize = (value) => {
-    return value
-      .toLowerCase()
-      .replace(/[^\w\s]/g, '')
-      .replace(/\s+/g, ' ')
-      .trim();
+    return value.toLowerCase().replace(/[^\w\s]/g, '').replace(/\s+/g, ' ').trim();
   };
 
   const blockedTopics = [
@@ -128,9 +125,7 @@
     'weapon', 'illegal', 'adult', 'weather', 'movie', 'game cheat'
   ];
 
-  const pickAnswer = (answers) => {
-    return answers[Math.floor(Math.random() * answers.length)];
-  };
+  const pickAnswer = (answers) => answers[Math.floor(Math.random() * answers.length)];
 
   const addMessage = (text, sender = 'bot') => {
     const bubble = document.createElement('div');
@@ -141,6 +136,50 @@
 
     bubble.textContent = text;
     messages.appendChild(bubble);
+    messages.scrollTop = messages.scrollHeight;
+  };
+
+  const clearFollowUps = () => {
+    document.getElementById('sophos-followups')?.remove();
+  };
+
+  const addFollowUps = (intentName) => {
+    clearFollowUps();
+
+    const suggestions = {
+      overview: ['What systems has Oscar built?', 'Which demo should I watch first?', 'Why should someone hire Oscar?'],
+      systems: ['What is AI Contract Reviewer?', 'What is Excel Whisperer?', 'What is ReadmitGuard?'],
+      contract: ['How does this work under the hood?', 'What problem does this solve?', 'Which demo should I watch first?'],
+      excel: ['How does this work under the hood?', 'What business problem does it solve?', 'How is this different from ChatGPT?'],
+      readmit: ['How does ReadmitGuard predict risk?', 'What business problem does it solve?', 'Which demo should I watch first?'],
+      technical: ['What tools were used?', 'How is this different from ChatGPT?', 'What systems has Oscar built?'],
+      business: ['Why should someone hire Oscar?', 'How can I contact Oscar?', 'Which demo should I watch first?'],
+      hiring: ['How can I contact Oscar?', 'What systems has Oscar built?', 'What AI engineering skills does Oscar show?'],
+      chatgpt: ['How does this work under the hood?', 'What business problem does it solve?', 'What systems has Oscar built?'],
+      contact: ['What systems has Oscar built?', 'Why should someone hire Oscar?', 'Which demo should I watch first?']
+    };
+
+    const options = suggestions[intentName] || suggestions.overview;
+
+    const wrapper = document.createElement('div');
+    wrapper.id = 'sophos-followups';
+    wrapper.className = 'grid gap-2 pt-2';
+
+    const label = document.createElement('p');
+    label.className = 'text-xs font-semibold uppercase tracking-[0.18em] text-cyan-300';
+    label.textContent = 'Suggested next moves';
+    wrapper.appendChild(label);
+
+    options.forEach((question) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'rounded-xl border border-cyan-400/10 bg-cyan-400/5 px-3 py-2 text-left text-xs text-cyan-100 transition hover:-translate-y-[1px] hover:bg-cyan-400/10';
+      button.textContent = question;
+      button.addEventListener('click', () => askSophos(question));
+      wrapper.appendChild(button);
+    });
+
+    messages.appendChild(wrapper);
     messages.scrollTop = messages.scrollHeight;
   };
 
@@ -157,21 +196,21 @@
     document.getElementById('sophos-typing')?.remove();
   };
 
-  const typeMessage = (text) => {
+  const typeMessage = (text, intentName = '') => {
     const bubble = document.createElement('div');
     bubble.className = 'max-w-[85%] rounded-2xl bg-white/5 px-3 py-2 text-slate-200';
     messages.appendChild(bubble);
 
     let i = 0;
     const typing = setInterval(() => {
-      bubble.textContent = text.substring(0, i) + "|";
+      bubble.textContent = text.substring(0, i) + '|';
       i++;
-
       messages.scrollTop = messages.scrollHeight;
 
       if (i > text.length) {
         bubble.textContent = text;
         clearInterval(typing);
+        addFollowUps(intentName || lastIntent || 'overview');
       }
     }, 12);
   };
@@ -179,15 +218,17 @@
   const intents = [
     {
       name: 'overview',
-      keywords: ['ai arsenal', 'what is this', 'what do you do', 'what is this site', 'what am i looking at', 'help'],
+      label: 'AI Arsenal',
+      keywords: ['hi', 'hello', 'hey', 'ai arsenal', 'what is this', 'what do you do', 'what is this site', 'what am i looking at', 'help'],
       answers: [
-        'AI Arsenal is Oscar Holguin’s portfolio of AI, analytics, and automation systems built to reduce manual work and deliver decision-ready insights.',
+        'Welcome in. AI Arsenal is Oscar Holguin’s portfolio of AI, analytics, and automation systems built to reduce manual work and deliver decision-ready insights.',
         'You’re looking at AI Arsenal, a showcase of practical AI and data systems designed around automation, analytics, and business decision clarity.',
         'AI Arsenal is built to show working systems, not just project screenshots. The focus is proof, demos, and real-world use cases.'
       ]
     },
     {
       name: 'systems',
+      label: 'Oscar’s systems',
       keywords: ['projects', 'systems', 'what has oscar built', 'portfolio', 'tools', 'demos'],
       answers: [
         'Oscar has built AI Contract Reviewer, Excel Whisperer, and ReadmitGuard. Each system shows a different kind of applied AI, analytics, automation, or prediction workflow.',
@@ -197,6 +238,7 @@
     },
     {
       name: 'contract',
+      label: 'AI Contract Reviewer',
       keywords: ['contract', 'reviewer', 'legal', 'risk analysis', 'agreement'],
       answers: [
         'AI Contract Reviewer analyzes agreements, surfaces risk signals, extracts key fields, and turns contract complexity into clearer business insight.',
@@ -206,6 +248,7 @@
     },
     {
       name: 'excel',
+      label: 'Excel Whisperer',
       keywords: ['excel', 'whisperer', 'spreadsheet', 'reporting', 'manual reporting'],
       answers: [
         'Excel Whisperer focuses on spreadsheet automation, data analysis, and insight generation using Python-driven workflows.',
@@ -215,6 +258,7 @@
     },
     {
       name: 'readmit',
+      label: 'ReadmitGuard',
       keywords: ['readmit', 'readmission', 'healthcare', 'patient', 'prediction', 'csv'],
       answers: [
         'ReadmitGuard demonstrates healthcare analytics through patient readmission risk prediction, including manual single-patient scoring and CSV batch processing.',
@@ -224,15 +268,17 @@
     },
     {
       name: 'technical',
+      label: 'technical architecture',
       keywords: ['under the hood', 'how does this work', 'tech stack', 'python', 'sql', 'machine learning', 'ai model', 'architecture'],
       answers: [
-        'The AI Arsenal stack highlights Python, SQL, data processing, automation, machine learning concepts, Streamlit apps, and business intelligence workflows.',
+        'Operator view: the AI Arsenal stack highlights Python, SQL, data processing, automation, machine learning concepts, Streamlit apps, and business intelligence workflows.',
         'Under the hood, these systems usually combine data ingestion, cleaning, analysis logic, structured outputs, and a user-facing interface for decision support.',
         'The technical pattern is practical: collect the data, structure it, analyze it, surface insights, and present the result in a way a user can act on.'
       ]
     },
     {
       name: 'business',
+      label: 'business value',
       keywords: ['business', 'help my business', 'problems', 'solve', 'manual work', 'time save', 'replace manual', 'value'],
       answers: [
         'AI Arsenal systems are designed to reduce manual work, surface important risks or patterns, and help teams make clearer decisions faster.',
@@ -242,6 +288,7 @@
     },
     {
       name: 'hiring',
+      label: 'hiring Oscar',
       keywords: ['hire', 'available', 'recruiter', 'job', 'remote', 'work with', 'roles', 'why hire'],
       answers: [
         'Oscar is positioned for AI engineering, data analytics, automation, business intelligence, and operational decision-support roles.',
@@ -251,6 +298,7 @@
     },
     {
       name: 'chatgpt',
+      label: 'AI system comparison',
       keywords: ['chatgpt', 'different from chatgpt', 'why not chatgpt', 'real ai'],
       answers: [
         'ChatGPT is general-purpose. AI Arsenal systems are focused workflows built around specific tasks, data, outputs, and decision needs.',
@@ -260,10 +308,9 @@
     },
     {
       name: 'contact',
+      label: 'contact',
       keywords: ['contact', 'linkedin', 'email', 'connect', 'reach'],
-      answers: [
-        'You can contact Oscar through LinkedIn or by email at AI.Arsenalenterprise@gmail.com.'
-      ]
+      answers: ['You can contact Oscar through LinkedIn or by email at AI.Arsenalenterprise@gmail.com.']
     }
   ];
 
@@ -277,12 +324,20 @@
     const q = normalize(question);
 
     if (blockedTopics.some((topic) => q.includes(topic))) {
-      return 'I’m focused on AI Arsenal, Oscar’s AI systems, data analytics, automation, and project demos. Try asking how a system works, what problem it solves, or how it helps a team.';
+      return {
+        intent: 'overview',
+        label: 'AI Arsenal',
+        answer: 'I’m focused on AI Arsenal, Oscar’s AI systems, data analytics, automation, and project demos. Try asking how a system works, what problem it solves, or how it helps a team.'
+      };
     }
 
     if (['more', 'tell me more', 'explain more', 'go deeper'].includes(q) && lastIntent) {
       const intent = intents.find((item) => item.name === lastIntent);
-      return `Going deeper: ${pickAnswer(intent.answers)} A good follow-up is to ask what problem this solves or which demo to watch first.`;
+      return {
+        intent: intent.name,
+        label: intent.label,
+        answer: `You asked about ${lastTopicLabel} earlier. Going deeper: ${pickAnswer(intent.answers)} A strong next question is what problem this solves or which demo to watch first.`
+      };
     }
 
     const ranked = intents
@@ -290,21 +345,37 @@
       .sort((a, b) => b.score - a.score);
 
     if (ranked[0].score > 0) {
-      lastIntent = ranked[0].intent.name;
-      return pickAnswer(ranked[0].intent.answers);
+      const matched = ranked[0].intent;
+      const memoryLead = lastTopicLabel && lastTopicLabel !== matched.label
+        ? `You asked about ${lastTopicLabel} earlier. Connecting that to ${matched.label}: `
+        : '';
+
+      lastIntent = matched.name;
+      lastTopicLabel = matched.label;
+
+      return {
+        intent: matched.name,
+        label: matched.label,
+        answer: memoryLead + pickAnswer(matched.answers)
+      };
     }
 
-    return pickAnswer([
-      'Good question. I can help with AI Arsenal systems, Oscar’s projects, automation, data analytics, and business use cases. Try asking what a system does or how it could help a team.',
-      'I’m tuned for AI Arsenal topics. Ask me about systems, business use cases, technical stack, or the live demos.',
-      'Try asking about AI Contract Reviewer, Excel Whisperer, ReadmitGuard, Oscar’s skills, or how these systems support better decisions.'
-    ]);
+    return {
+      intent: 'overview',
+      label: 'AI Arsenal',
+      answer: pickAnswer([
+        'Good question. I can help with AI Arsenal systems, Oscar’s projects, automation, data analytics, and business use cases. Try asking what a system does or how it could help a team.',
+        'I’m tuned for AI Arsenal topics. Ask me about systems, business use cases, technical stack, or the live demos.',
+        'Try asking about AI Contract Reviewer, Excel Whisperer, ReadmitGuard, Oscar’s skills, or how these systems support better decisions.'
+      ])
+    };
   };
 
   const askSophos = (question) => {
     const trimmed = question.trim();
     if (!trimmed) return;
 
+    clearFollowUps();
     addMessage(trimmed, 'user');
     showTyping();
 
@@ -312,7 +383,8 @@
 
     window.setTimeout(() => {
       hideTyping();
-      typeMessage(getAnswer(trimmed));
+      const result = getAnswer(trimmed);
+      typeMessage(result.answer, result.intent);
     }, delay);
   };
 
@@ -423,6 +495,7 @@
     animation: sophosFloat 2.2s ease-in-out infinite, softPulse 3s ease-in-out infinite;
   }
 </style>
+
 
 
 
