@@ -101,25 +101,28 @@
   const messages = document.getElementById('sophos-messages');
   const promptButtons = document.querySelectorAll('.sophos-prompt');
 
-  const allowedTopics = [
-    'ai arsenal', 'oscar', 'project', 'projects', 'system', 'systems',
-    'contract', 'reviewer', 'excel', 'whisperer', 'readmit', 'readmission',
-    'analytics', 'data', 'python', 'sql', 'automation', 'machine learning',
-    'ai engineering', 'ai engineer', 'business intelligence', 'dashboard',
-    'workflow', 'contact', 'linkedin', 'youtube', 'demo', 'demos',
-    'portfolio', 'skills', 'tools', 'stack', 'hire', 'recruiter',
-    'healthcare', 'risk', 'prediction'
-  ];
+  let lastIntent = '';
+
+  const normalize = (value) => {
+    return value
+      .toLowerCase()
+      .replace(/[^\w\s]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  };
 
   const blockedTopics = [
     'recipe', 'food', 'pancake', 'malware', 'hack', 'exploit',
     'password', 'politics', 'gambling', 'crypto advice', 'casino',
-    'weapon', 'illegal', 'adult'
+    'weapon', 'illegal', 'adult', 'weather', 'movie', 'game cheat'
   ];
+
+  const pickAnswer = (answers) => {
+    return answers[Math.floor(Math.random() * answers.length)];
+  };
 
   const addMessage = (text, sender = 'bot') => {
     const bubble = document.createElement('div');
-
     bubble.className =
       sender === 'user'
         ? 'ml-auto max-w-[85%] rounded-2xl bg-cyan-400 px-3 py-2 text-slate-950'
@@ -134,7 +137,7 @@
     const typing = document.createElement('div');
     typing.id = 'sophos-typing';
     typing.className = 'max-w-[85%] rounded-2xl bg-white/5 px-3 py-2 text-slate-400';
-    typing.textContent = 'Sophos is thinking...';
+    typing.textContent = 'Sophos is analyzing...';
     messages.appendChild(typing);
     messages.scrollTop = messages.scrollHeight;
   };
@@ -143,110 +146,164 @@
     document.getElementById('sophos-typing')?.remove();
   };
 
-  const isAllowed = (question) => {
-    const cleanQuestion = question.toLowerCase();
+  const typeMessage = (text) => {
+    const bubble = document.createElement('div');
+    bubble.className = 'max-w-[85%] rounded-2xl bg-white/5 px-3 py-2 text-slate-200';
+    messages.appendChild(bubble);
 
-    if (blockedTopics.some((topic) => cleanQuestion.includes(topic))) {
-      return false;
+    let i = 0;
+    const typing = setInterval(() => {
+      bubble.textContent += text.charAt(i);
+      i++;
+      messages.scrollTop = messages.scrollHeight;
+
+      if (i >= text.length) {
+        clearInterval(typing);
+      }
+    }, 12);
+  };
+
+  const intents = [
+    {
+      name: 'overview',
+      keywords: ['ai arsenal', 'what is this', 'what do you do', 'what is this site', 'what am i looking at', 'help'],
+      answers: [
+        'AI Arsenal is Oscar Holguin’s portfolio of AI, analytics, and automation systems built to reduce manual work and deliver decision-ready insights.',
+        'You’re looking at AI Arsenal, a showcase of practical AI and data systems designed around automation, analytics, and business decision clarity.',
+        'AI Arsenal is built to show working systems, not just project screenshots. The focus is proof, demos, and real-world use cases.'
+      ]
+    },
+    {
+      name: 'systems',
+      keywords: ['projects', 'systems', 'what has oscar built', 'portfolio', 'tools', 'demos'],
+      answers: [
+        'Oscar has built AI Contract Reviewer, Excel Whisperer, and ReadmitGuard. Each system shows a different kind of applied AI, analytics, automation, or prediction workflow.',
+        'The featured systems are AI Contract Reviewer for risk analysis, Excel Whisperer for spreadsheet automation, and ReadmitGuard for healthcare prediction workflows.',
+        'These systems demonstrate practical AI product thinking: input, analysis, structured output, and decision support.'
+      ]
+    },
+    {
+      name: 'contract',
+      keywords: ['contract', 'reviewer', 'legal', 'risk analysis', 'agreement'],
+      answers: [
+        'AI Contract Reviewer analyzes agreements, surfaces risk signals, extracts key fields, and turns contract complexity into clearer business insight.',
+        'The contract system is designed to help users scan agreements faster, identify risks, and understand key terms without getting lost in the full document.',
+        'AI Contract Reviewer demonstrates risk detection, field extraction, source-aware review, and decision-ready summaries.'
+      ]
+    },
+    {
+      name: 'excel',
+      keywords: ['excel', 'whisperer', 'spreadsheet', 'reporting', 'manual reporting'],
+      answers: [
+        'Excel Whisperer focuses on spreadsheet automation, data analysis, and insight generation using Python-driven workflows.',
+        'Excel Whisperer is built around a common business problem: too much manual spreadsheet work and not enough fast insight.',
+        'The Excel system shows how Python and automation can turn spreadsheet-heavy workflows into faster, cleaner analysis.'
+      ]
+    },
+    {
+      name: 'readmit',
+      keywords: ['readmit', 'readmission', 'healthcare', 'patient', 'prediction', 'csv'],
+      answers: [
+        'ReadmitGuard demonstrates healthcare analytics through patient readmission risk prediction, including manual single-patient scoring and CSV batch processing.',
+        'ReadmitGuard shows how predictive analytics can support healthcare decision workflows by estimating readmission risk from patient data.',
+        'The ReadmitGuard demos show two workflows: single-patient manual entry and CSV batch prediction for larger datasets.'
+      ]
+    },
+    {
+      name: 'technical',
+      keywords: ['under the hood', 'how does this work', 'tech stack', 'python', 'sql', 'machine learning', 'ai model', 'architecture'],
+      answers: [
+        'The AI Arsenal stack highlights Python, SQL, data processing, automation, machine learning concepts, Streamlit apps, and business intelligence workflows.',
+        'Under the hood, these systems usually combine data ingestion, cleaning, analysis logic, structured outputs, and a user-facing interface for decision support.',
+        'The technical pattern is practical: collect the data, structure it, analyze it, surface insights, and present the result in a way a user can act on.'
+      ]
+    },
+    {
+      name: 'business',
+      keywords: ['business', 'help my business', 'problems', 'solve', 'manual work', 'time save', 'replace manual', 'value'],
+      answers: [
+        'AI Arsenal systems are designed to reduce manual work, surface important risks or patterns, and help teams make clearer decisions faster.',
+        'The business value is workflow clarity: fewer manual steps, better visibility, faster analysis, and more consistent decision support.',
+        'These tools help by turning messy data, documents, or workflows into structured outputs that leaders can act on.'
+      ]
+    },
+    {
+      name: 'hiring',
+      keywords: ['hire', 'available', 'recruiter', 'job', 'remote', 'work with', 'roles', 'why hire'],
+      answers: [
+        'Oscar is positioned for AI engineering, data analytics, automation, business intelligence, and operational decision-support roles.',
+        'Oscar can bring value in roles involving AI tools, analytics systems, workflow automation, reporting, dashboards, and process optimization.',
+        'For hiring conversations, the strongest fit is work that combines data, AI, automation, and decision support for business teams.'
+      ]
+    },
+    {
+      name: 'chatgpt',
+      keywords: ['chatgpt', 'different from chatgpt', 'why not chatgpt', 'real ai'],
+      answers: [
+        'ChatGPT is general-purpose. AI Arsenal systems are focused workflows built around specific tasks, data, outputs, and decision needs.',
+        'The difference is structure. These tools are designed around repeatable business workflows, not open-ended chatting.',
+        'AI Arsenal uses AI as part of a system: inputs, rules, outputs, review flow, and business context.'
+      ]
+    },
+    {
+      name: 'contact',
+      keywords: ['contact', 'linkedin', 'email', 'connect', 'reach'],
+      answers: [
+        'You can contact Oscar through LinkedIn or by email at AI.Arsenalenterprise@gmail.com.'
+      ]
     }
+  ];
 
-    return allowedTopics.some((topic) => cleanQuestion.includes(topic));
+  const scoreIntent = (question, intent) => {
+    return intent.keywords.reduce((score, keyword) => {
+      return question.includes(keyword) ? score + keyword.length : score;
+    }, 0);
   };
 
   const getAnswer = (question) => {
-    const q = question.toLowerCase();
+    const q = normalize(question);
 
-    if (!isAllowed(q)) {
-      return 'I’m focused on AI Arsenal, Oscar’s AI systems, data analytics, automation, and project demos. Try asking about AI Contract Reviewer, Excel Whisperer, ReadmitGuard, or Oscar’s AI engineering work.';
+    if (blockedTopics.some((topic) => q.includes(topic))) {
+      return 'I’m focused on AI Arsenal, Oscar’s AI systems, data analytics, automation, and project demos. Try asking how a system works, what problem it solves, or how it helps a team.';
     }
 
-    if (q.includes('ai arsenal')) {
-      return 'AI Arsenal is Oscar Holguin’s portfolio of AI, analytics, and automation systems built to reduce manual work and deliver decision-ready insights.';
+    if (['more', 'tell me more', 'explain more', 'go deeper'].includes(q) && lastIntent) {
+      const intent = intents.find((item) => item.name === lastIntent);
+      return `Going deeper: ${pickAnswer(intent.answers)} A good follow-up is to ask what problem this solves or which demo to watch first.`;
     }
 
-    if (q.includes('contract') || q.includes('reviewer')) {
-      return 'AI Contract Reviewer analyzes agreements, surfaces risk signals, extracts key fields, and turns contract complexity into clearer business insight.';
+    const ranked = intents
+      .map((intent) => ({ intent, score: scoreIntent(q, intent) }))
+      .sort((a, b) => b.score - a.score);
+
+    if (ranked[0].score > 0) {
+      lastIntent = ranked[0].intent.name;
+      return pickAnswer(ranked[0].intent.answers);
     }
 
-    if (q.includes('excel') || q.includes('whisperer')) {
-      return 'Excel Whisperer focuses on spreadsheet automation, data analysis, and insight generation using Python-driven workflows.';
-    }
-
-    if (q.includes('readmit') || q.includes('readmission') || q.includes('healthcare')) {
-      return 'ReadmitGuard demonstrates healthcare analytics through patient readmission risk prediction, including manual single-patient scoring and CSV batch processing.';
-    }
-
-    if (q.includes('ai engineering') || q.includes('ai engineer')) {
-      return 'Oscar’s AI engineering work shows practical system design: local-first tools, data pipelines, model-assisted analysis, structured outputs, and user-focused decision workflows.';
-    }
-
-    if (q.includes('analytics') || q.includes('data')) {
-      return 'Oscar’s data analytics work focuses on transforming messy information into clear reporting, decision systems, dashboards, and operational insights.';
-    }
-
-    if (q.includes('python') || q.includes('sql') || q.includes('stack') || q.includes('tools')) {
-      return 'The AI Arsenal stack highlights Python, SQL, data processing, automation, machine learning concepts, Streamlit apps, and business intelligence workflows.';
-    }
-
-    if (q.includes('skills')) {
-      return 'Oscar shows skills in Python, SQL, analytics, automation, AI workflows, dashboard thinking, data storytelling, and building user-facing decision systems.';
-    }
-
-    if (q.includes('watch first') || q.includes('demo')) {
-      return 'Start with AI Contract Reviewer to see risk analysis and decision insights, then watch Excel Whisperer for automation and ReadmitGuard for predictive analytics.';
-    }
-
-    if (q.includes('hire') || q.includes('recruiter')) {
-      return 'Oscar is positioned for AI engineering, data analytics, automation, business intelligence, and operational decision-support roles.';
-    }
-
-    if (q.includes('contact') || q.includes('linkedin')) {
-      return 'You can contact Oscar through LinkedIn or by email at AI.Arsenalenterprise@gmail.com.';
-    }
-
-    if (q.includes('youtube')) {
-      return 'The live demos on this site connect to the AI Arsenal YouTube channel, where Oscar showcases working AI and analytics systems.';
-    }
-
-    return 'Oscar builds AI-powered data systems focused on automation, analytics, risk visibility, and decision clarity. Ask me about one of the featured systems.';
+    return pickAnswer([
+      'Good question. I can help with AI Arsenal systems, Oscar’s projects, automation, data analytics, and business use cases. Try asking what a system does or how it could help a team.',
+      'I’m tuned for AI Arsenal topics. Ask me about systems, business use cases, technical stack, or the live demos.',
+      'Try asking about AI Contract Reviewer, Excel Whisperer, ReadmitGuard, Oscar’s skills, or how these systems support better decisions.'
+    ]);
   };
 
-  const typeMessage = (text) => {
-  const bubble = document.createElement('div');
-  bubble.className = 'max-w-[85%] rounded-2xl bg-white/5 px-3 py-2 text-slate-200';
+  const askSophos = (question) => {
+    const trimmed = question.trim();
+    if (!trimmed) return;
 
-  messages.appendChild(bubble);
+    addMessage(trimmed, 'user');
+    showTyping();
 
-  let i = 0;
+    const delay = 350 + Math.random() * 700;
 
-  const typing = setInterval(() => {
-    bubble.textContent += text.charAt(i);
-    i++;
+    window.setTimeout(() => {
+      hideTyping();
+      typeMessage(getAnswer(trimmed));
+    }, delay);
+  };
 
-    messages.scrollTop = messages.scrollHeight;
-
-    if (i >= text.length) {
-      clearInterval(typing);
-    }
-  }, 12);
-};
-
-const askSophos = (question) => {
-  const trimmed = question.trim();
-
-  if (!trimmed) return;
-
-  addMessage(trimmed, 'user');
-  showTyping();
-
-  const delay = 350 + Math.random() * 700;
-
-  window.setTimeout(() => {
-    hideTyping();
-    typeMessage(getAnswer(trimmed));
-  }, delay);
-};
-toggle?.addEventListener('click', () => {
+  toggle?.addEventListener('click', () => {
     panel?.classList.toggle('hidden');
     panel?.classList.toggle('flex');
   });
@@ -339,4 +396,5 @@ toggle?.addEventListener('click', () => {
     }
   }
 </style>
+
 
