@@ -6,7 +6,7 @@
   <button
     id="sophos-toggle"
     type="button"
-    class="sophos-pulse flex h-16 w-16 items-center justify-center rounded-full border border-cyan-400/30 bg-cyan-400 text-2xl shadow-2xl shadow-cyan-900/40 transition hover:bg-cyan-300"
+    class="sophos-pulse sophos-orb flex h-16 w-16 items-center justify-center rounded-full border border-cyan-400/30 bg-cyan-400 text-2xl shadow-2xl shadow-cyan-900/40 transition hover:bg-cyan-300"
     aria-label="Open AI Arsenal assistant"
   >
     <img src="/images/cross-badge.png" alt="Sophos AI assistant" class="h-9 w-9 object-contain" />
@@ -47,31 +47,31 @@
       </summary>
 
       <div class="mt-2 grid max-h-[105px] gap-2 overflow-y-auto pr-1">
-        <button class="sophos-prompt rounded-xl bg-white/5 px-3 py-2 text-left text-xs text-slate-200 transition hover:bg-cyan-400/10" data-question="What is AI Arsenal?">
+        <button class="sophos-prompt rounded-xl bg-white/5 px-3 py-2 text-left text-xs text-slate-200 transition hover:-translate-y-[1px] hover:bg-cyan-400/10" data-question="What is AI Arsenal?">
           What is AI Arsenal?
         </button>
 
-        <button class="sophos-prompt rounded-xl bg-white/5 px-3 py-2 text-left text-xs text-slate-200 transition hover:bg-cyan-400/10" data-question="What systems has Oscar built?">
+        <button class="sophos-prompt rounded-xl bg-white/5 px-3 py-2 text-left text-xs text-slate-200 transition hover:-translate-y-[1px] hover:bg-cyan-400/10" data-question="What systems has Oscar built?">
           What systems has Oscar built?
         </button>
 
-        <button class="sophos-prompt rounded-xl bg-white/5 px-3 py-2 text-left text-xs text-slate-200 transition hover:bg-cyan-400/10" data-question="Why should someone hire Oscar?">
+        <button class="sophos-prompt rounded-xl bg-white/5 px-3 py-2 text-left text-xs text-slate-200 transition hover:-translate-y-[1px] hover:bg-cyan-400/10" data-question="Why should someone hire Oscar?">
           Why should someone hire Oscar?
         </button>
 
-        <button class="sophos-prompt rounded-xl bg-white/5 px-3 py-2 text-left text-xs text-slate-200 transition hover:bg-cyan-400/10" data-question="How does this work under the hood?">
+        <button class="sophos-prompt rounded-xl bg-white/5 px-3 py-2 text-left text-xs text-slate-200 transition hover:-translate-y-[1px] hover:bg-cyan-400/10" data-question="How does this work under the hood?">
           How does this work under the hood?
         </button>
 
-        <button class="sophos-prompt rounded-xl bg-white/5 px-3 py-2 text-left text-xs text-slate-200 transition hover:bg-cyan-400/10" data-question="How is this different from ChatGPT?">
+        <button class="sophos-prompt rounded-xl bg-white/5 px-3 py-2 text-left text-xs text-slate-200 transition hover:-translate-y-[1px] hover:bg-cyan-400/10" data-question="How is this different from ChatGPT?">
           How is this different from ChatGPT?
         </button>
 
-        <button class="sophos-prompt rounded-xl bg-white/5 px-3 py-2 text-left text-xs text-slate-200 transition hover:bg-cyan-400/10" data-question="Which demo should I watch first?">
+        <button class="sophos-prompt rounded-xl bg-white/5 px-3 py-2 text-left text-xs text-slate-200 transition hover:-translate-y-[1px] hover:bg-cyan-400/10" data-question="Which demo should I watch first?">
           Which demo should I watch first?
         </button>
 
-        <button class="sophos-prompt rounded-xl bg-white/5 px-3 py-2 text-left text-xs text-slate-200 transition hover:bg-cyan-400/10" data-question="How can I contact Oscar?">
+        <button class="sophos-prompt rounded-xl bg-white/5 px-3 py-2 text-left text-xs text-slate-200 transition hover:-translate-y-[1px] hover:bg-cyan-400/10" data-question="How can I contact Oscar?">
           How can I contact Oscar?
         </button>
       </div>
@@ -164,11 +164,13 @@
 
     let i = 0;
     const typing = setInterval(() => {
-      bubble.textContent += text.charAt(i);
+      bubble.textContent = text.substring(0, i) + "|";
       i++;
+
       messages.scrollTop = messages.scrollHeight;
 
-      if (i >= text.length) {
+      if (i > text.length) {
+        bubble.textContent = text;
         clearInterval(typing);
       }
     }, 12);
@@ -306,7 +308,7 @@
     addMessage(trimmed, 'user');
     showTyping();
 
-    const delay = 350 + Math.random() * 700;
+    const delay = Math.min(900, 250 + trimmed.length * 8);
 
     window.setTimeout(() => {
       hideTyping();
@@ -406,7 +408,22 @@
       display: none;
     }
   }
+
+  @keyframes softPulse {
+    0%, 100% {
+      box-shadow: 0 0 0 rgba(34, 211, 238, 0.25);
+    }
+
+    50% {
+      box-shadow: 0 0 22px rgba(34, 211, 238, 0.65);
+    }
+  }
+
+  .sophos-orb {
+    animation: sophosFloat 2.2s ease-in-out infinite, softPulse 3s ease-in-out infinite;
+  }
 </style>
+
 
 
 
