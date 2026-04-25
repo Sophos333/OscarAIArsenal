@@ -1,5 +1,6 @@
----
+﻿---
 import Layout from '../layouts/Layout.astro';
+import ContactSection from '../components/ContactSection.astro';
 import SophosAssistant from '../components/SophosAssistant.astro';
 
 const systems = [
@@ -42,7 +43,7 @@ const systems = [
       <div class="relative mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
         <div class="animate-[fadeIn_0.8s_ease-out]">
           <p class="mb-5 inline-flex rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-2 text-sm font-medium text-cyan-200">
-            Data • AI • Automation • Decision Systems
+            Data â€¢ AI â€¢ Automation â€¢ Decision Systems
           </p>
 
           <div class="flex items-center gap-6">
@@ -117,7 +118,7 @@ const systems = [
             <div class="grid gap-4 sm:grid-cols-2">
               <div class="rounded-2xl border border-white/10 bg-slate-900/80 p-5">
                 <p class="text-sm text-slate-400">Stack</p>
-                <p class="mt-2 font-bold">Python • SQL • BI</p>
+                <p class="mt-2 font-bold">Python - SQL - BI</p>
               </div>
 
               <div class="rounded-2xl border border-white/10 bg-slate-900/80 p-5">
@@ -182,14 +183,7 @@ const systems = [
       </div>
     </section>
 
-    <section id="contact" class="px-6 py-20 sm:px-10 lg:px-16">
-      <div class="mx-auto max-w-4xl rounded-3xl border border-white/10 bg-white/5 p-10 text-center">
-        <h2 class="text-3xl font-bold">Let’s build something decision-ready.</h2>
-        <p class="mt-4 text-slate-400">
-          Connect with me for AI, analytics, automation, and operational decision systems.
-        </p>
-      </div>
-    </section>
+    <ContactSection />
 	<SophosAssistant />
   </main>
 

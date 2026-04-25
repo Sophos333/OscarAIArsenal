@@ -1,0 +1,119 @@
+﻿---
+const email = 'AI.Arsenalenterprise@gmail.com';
+---
+
+<!-- WAYPOINT: CONTACT_SECTION_SECURE_FORM -->
+<section id="contact" class="px-6 py-20 sm:px-10 lg:px-16">
+  <div class="mx-auto max-w-5xl rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl shadow-cyan-950/30 backdrop-blur sm:p-10">
+    <div class="text-center">
+      <p class="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
+        Contact
+      </p>
+
+      <h2 class="mt-4 text-3xl font-bold sm:text-4xl">
+        Let’s build something decision-ready.
+      </h2>
+
+      <p class="mx-auto mt-4 max-w-2xl text-slate-400">
+        Reach out for AI systems, analytics workflows, automation, dashboards, or decision-support projects.
+      </p>
+    </div>
+
+    <form
+      action={`https://formsubmit.co/${email}`}
+      method="POST"
+      class="mx-auto mt-10 grid max-w-3xl gap-5"
+    >
+  <input type="hidden" name="_captcha" value="true">
+  <input type="hidden" name="_next" value="https://formsubmit.co/thanks">
+  <input type="hidden" name="_subject" value="New AI Arsenal Lead">
+      <input type="hidden" name="_template" value="table" />
+
+      <!-- Honeypot field: real users will not see this. Bots often fill it out. -->
+      <input
+        type="text"
+        name="_honey"
+        tabindex="-1"
+        autocomplete="off"
+        class="hidden"
+      />
+
+      <div class="grid gap-5 sm:grid-cols-2">
+        <label class="grid gap-2 text-sm font-semibold text-slate-200">
+          Name
+          <input
+            type="text"
+            name="name"
+            required
+            maxlength="80"
+            placeholder="Your name"
+            class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-400/50"
+          />
+        </label>
+
+        <label class="grid gap-2 text-sm font-semibold text-slate-200">
+          Email
+          <input
+            type="email"
+            name="email"
+            required
+            maxlength="120"
+            placeholder="you@example.com"
+            class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-400/50"
+          />
+        </label>
+      </div>
+
+      <label class="grid gap-2 text-sm font-semibold text-slate-200">
+        Project Type
+        <select
+          name="project_type"
+          class="rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white outline-none transition focus:border-cyan-400/50"
+        >
+          <option>AI system</option>
+          <option>Data analytics</option>
+          <option>Automation workflow</option>
+          <option>Dashboard / reporting</option>
+          <option>General inquiry</option>
+        </select>
+      </label>
+
+      <label class="grid gap-2 text-sm font-semibold text-slate-200">
+        Message
+        <textarea
+          name="message"
+          required
+          maxlength="1200"
+          rows="6"
+          placeholder="Tell me what you need help with..."
+          class="resize-none rounded-2xl border border-white/10 bg-slate-950/70 px-4 py-3 text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-400/50"
+        ></textarea>
+      </label>
+
+      <p class="text-xs leading-6 text-slate-500">
+        Security note: this form does not accept file uploads or attachments. Please do not submit sensitive data, passwords, private health information, or confidential documents.
+      </p>
+
+      <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <button
+          type="submit"
+          class="rounded-full bg-cyan-400 px-7 py-3 text-sm font-bold text-slate-950 transition hover:-translate-y-1 hover:bg-cyan-300"
+        >
+          Send Message
+        </button>
+
+        <a
+          href="https://www.linkedin.com/in/yashuasspear-oscar-holguin-silva/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-sm font-semibold text-cyan-300 transition hover:text-cyan-200"
+        >
+          Connect on LinkedIn
+        </a>
+      </div>
+    </form>
+  </div>
+</section>
+
+
+
