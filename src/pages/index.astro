@@ -1,11 +1,209 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import SophosAssistant from '../components/SophosAssistant.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const systems = [
+  {
+    title: 'AI Contract Reviewer',
+    description:
+      'Automated contract risk analysis with key field extraction and decision-ready insights.',
+    videoUrl: 'https://www.youtube.com/embed/CkHkTkwjyb4',
+    tags: ['Python', 'AI', 'Risk Analysis']
+  },
+  {
+    title: 'Excel Whisperer',
+    description:
+      'AI-powered spreadsheet automation built to reduce manual reporting and surface insights faster.',
+    videoUrl: 'https://www.youtube.com/embed/wH5GimNodVo',
+    tags: ['Python', 'Excel', 'Automation']
+  },
+  {
+    title: 'ReadmitGuard Manual Entry',
+    description:
+      'Single-patient readmission risk prediction using manual input and AI-driven scoring.',
+    videoUrl: 'https://www.youtube.com/embed/dhHS-pOz__I',
+    tags: ['Healthcare AI', 'ML', 'Prediction']
+  },
+  {
+    title: 'ReadmitGuard CSV Batch',
+    description:
+      'Batch readmission risk prediction using CSV processing for scalable healthcare analytics.',
+    videoUrl: 'https://www.youtube.com/embed/NhVMz8I6Z-Y',
+    tags: ['CSV', 'Healthcare', 'Analytics']
+  }
+];
 ---
 
 <Layout>
-	<Welcome />
+  <main class="min-h-screen bg-slate-950 text-white">
+    <section class="relative overflow-hidden px-6 py-24 sm:px-10 lg:px-16">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(124,58,237,0.35),transparent_30%),radial-gradient(circle_at_top_right,rgba(6,182,212,0.25),transparent_30%)]"></div>
+
+      <div class="relative mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
+        <div class="animate-[fadeIn_0.8s_ease-out]">
+          <p class="mb-5 inline-flex rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-2 text-sm font-medium text-cyan-200">
+            Data • AI • Automation • Decision Systems
+          </p>
+
+          <div class="flex items-center gap-6">
+            <img
+              src="/images/AI_Arsenal_Logo.jpg"
+              alt="AI Arsenal Logo"
+              class="h-28 w-28 flex-shrink-0 rounded-2xl border border-white/10 object-cover shadow-2xl shadow-cyan-500/30 sm:h-32 sm:w-32"
+            />
+
+            <div class="leading-tight">
+              <h1 class="text-5xl font-extrabold sm:text-6xl lg:text-7xl">
+                <span class="bg-gradient-to-r from-white via-cyan-200 to-cyan-400 bg-clip-text text-transparent">
+                  AI
+                </span>
+              </h1>
+
+              <h1 class="-mt-2 text-5xl font-extrabold sm:text-6xl lg:text-7xl">
+                <span class="bg-gradient-to-r from-white via-cyan-200 to-cyan-400 bg-clip-text text-transparent">
+                  Arsenal
+                </span>
+              </h1>
+            </div>
+          </div>
+
+          <p class="mt-6 max-w-2xl text-xl leading-8 text-slate-300">
+            Building Data & AI Systems That Drive Decisions.
+          </p>
+
+          <p class="mt-5 max-w-2xl text-base leading-8 text-slate-400">
+            I turn messy workflows, scattered data, and manual reporting into clear,
+            actionable systems using analytics, automation, and AI.
+          </p>
+
+          <p class="mt-4 text-sm text-cyan-300">
+            Focused on turning complexity into clarity for leaders and teams.
+          </p>
+
+          <div class="mt-10 flex flex-col gap-4 sm:flex-row">
+            <a
+              href="#systems"
+              class="rounded-full bg-cyan-400 px-6 py-3 text-center text-sm font-bold text-slate-950 transition hover:bg-cyan-300"
+            >
+              View Systems
+            </a>
+
+            <a
+              href="#contact"
+              class="rounded-full border border-white/15 bg-white/5 px-6 py-3 text-center text-sm font-bold text-white transition hover:bg-white/10"
+            >
+              Contact
+            </a>
+          </div>
+        </div>
+
+        <div class="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl shadow-cyan-950/40 backdrop-blur">
+          <div class="mb-5 flex items-center justify-between">
+            <p class="text-sm font-semibold text-cyan-200">AI Arsenal Control View</p>
+            <span class="rounded-full bg-emerald-400/15 px-3 py-1 text-xs text-emerald-300">
+              Online
+            </span>
+          </div>
+
+          <div class="space-y-4">
+            <div class="rounded-2xl border border-white/10 bg-slate-900/80 p-5">
+              <p class="text-sm text-slate-400">Featured System</p>
+              <p class="mt-2 text-xl font-bold">AI Contract Reviewer</p>
+              <p class="mt-2 text-sm text-slate-400">
+                Contract risk analysis, key field extraction, and decision-ready summaries.
+              </p>
+            </div>
+
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="rounded-2xl border border-white/10 bg-slate-900/80 p-5">
+                <p class="text-sm text-slate-400">Stack</p>
+                <p class="mt-2 font-bold">Python • SQL • BI</p>
+              </div>
+
+              <div class="rounded-2xl border border-white/10 bg-slate-900/80 p-5">
+                <p class="text-sm text-slate-400">Focus</p>
+                <p class="mt-2 font-bold">Decision Clarity</p>
+              </div>
+            </div>
+
+            <div class="rounded-2xl border border-cyan-400/20 bg-cyan-400/10 p-5">
+              <p class="text-sm text-cyan-100">
+                Mission: build tools that reduce manual work, reveal risk, and help leaders act with confidence.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WAYPOINT: FEATURED_SYSTEMS_WITH_VIDEO -->
+    <section id="systems" class="px-6 py-20 sm:px-10 lg:px-16">
+      <div class="mx-auto max-w-7xl">
+        <p class="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
+          Featured Systems
+        </p>
+
+        <h2 class="mt-4 text-3xl font-bold sm:text-4xl">
+          Live demos built for analysis, automation, and action.
+        </h2>
+
+        <div class="mt-10 grid gap-8 lg:grid-cols-2">
+          {systems.map((system) => (
+            <article class="group rounded-3xl border border-white/10 bg-white/5 p-6 transition duration-300 hover:-translate-y-2 hover:border-cyan-400/30 hover:bg-white/10 hover:shadow-xl hover:shadow-cyan-900/40">
+              <div class="overflow-hidden rounded-2xl border border-white/10 bg-slate-900/80">
+                <iframe
+                  src={system.videoUrl}
+                  title={`${system.title} Demo`}
+                  class="aspect-video w-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                  loading="lazy"
+                ></iframe>
+              </div>
+
+              <div class="mt-6">
+                <h3 class="text-2xl font-bold">{system.title}</h3>
+
+                <p class="mt-3 text-sm leading-7 text-slate-400">
+                  {system.description}
+                </p>
+
+                <div class="mt-5 flex flex-wrap gap-2">
+                  {system.tags.map((tag) => (
+                    <span class="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-xs font-medium text-cyan-200">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="px-6 py-20 sm:px-10 lg:px-16">
+      <div class="mx-auto max-w-4xl rounded-3xl border border-white/10 bg-white/5 p-10 text-center">
+        <h2 class="text-3xl font-bold">Let’s build something decision-ready.</h2>
+        <p class="mt-4 text-slate-400">
+          Connect with me for AI, analytics, automation, and operational decision systems.
+        </p>
+      </div>
+    </section>
+	<SophosAssistant />
+  </main>
+
+  <style>
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </Layout>

@@ -1,0 +1,185 @@
+﻿---
+---
+
+<!-- WAYPOINT: SOPHOS_AI_ARSENAL_ASSISTANT -->
+<div id="sophos-root" class="fixed bottom-6 right-6 z-50">
+  <button
+    id="sophos-toggle"
+    type="button"
+    class="sophos-pulse flex h-16 w-16 items-center justify-center rounded-full border border-cyan-400/30 bg-cyan-400 text-2xl shadow-2xl shadow-cyan-900/40 transition hover:-translate-y-1 hover:bg-cyan-300"
+    aria-label="Open AI Arsenal assistant"
+  >
+    🧠
+  </button>
+
+  <div id="sophos-panel" class="hidden w-[340px] overflow-hidden rounded-3xl border border-white/10 bg-slate-950/95 text-white shadow-2xl shadow-cyan-950/50 backdrop-blur sm:w-[390px]">
+    <div class="border-b border-white/10 bg-white/5 p-4">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="text-sm font-bold text-cyan-200">Sophos</p>
+          <p class="text-xs text-slate-400">AI Arsenal Assistant</p>
+        </div>
+        <button id="sophos-close" type="button" class="rounded-full border border-white/10 px-3 py-1 text-xs text-slate-300 transition hover:bg-white/10">
+          Close
+        </button>
+      </div>
+    </div>
+
+    <div id="sophos-messages" class="max-h-[340px] space-y-3 overflow-y-auto p-4 text-sm">
+      <div class="rounded-2xl bg-cyan-400/10 p-3 text-cyan-100">
+        Shalom, I’m Sophos. Ask me about AI Arsenal, Oscar’s systems, AI engineering, data analytics, automation, or the live demos.
+      </div>
+    </div>
+
+    <div class="grid gap-2 border-t border-white/10 p-4">
+      <button class="sophos-prompt rounded-xl bg-white/5 px-3 py-2 text-left text-xs text-slate-200 transition hover:bg-cyan-400/10" data-question="What is AI Arsenal?">
+        What is AI Arsenal?
+      </button>
+      <button class="sophos-prompt rounded-xl bg-white/5 px-3 py-2 text-left text-xs text-slate-200 transition hover:bg-cyan-400/10" data-question="What systems has Oscar built?">
+        What systems has Oscar built?
+      </button>
+      <button class="sophos-prompt rounded-xl bg-white/5 px-3 py-2 text-left text-xs text-slate-200 transition hover:bg-cyan-400/10" data-question="What AI engineering skills does Oscar show?">
+        What AI engineering skills does Oscar show?
+      </button>
+      <button class="sophos-prompt rounded-xl bg-white/5 px-3 py-2 text-left text-xs text-slate-200 transition hover:bg-cyan-400/10" data-question="How can I contact Oscar?">
+        How can I contact Oscar?
+      </button>
+    </div>
+
+    <form id="sophos-form" class="flex gap-2 border-t border-white/10 p-4">
+      <input
+        id="sophos-input"
+        type="text"
+        maxlength="160"
+        placeholder="Ask about AI Arsenal..."
+        class="min-w-0 flex-1 rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none placeholder:text-slate-500 focus:border-cyan-400/50"
+      />
+      <button type="submit" class="rounded-xl bg-cyan-400 px-4 py-2 text-sm font-bold text-slate-950 transition hover:bg-cyan-300">
+        Send
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+  const toggle = document.getElementById('sophos-toggle');
+  const panel = document.getElementById('sophos-panel');
+  const closeButton = document.getElementById('sophos-close');
+  const form = document.getElementById('sophos-form');
+  const input = document.getElementById('sophos-input');
+  const messages = document.getElementById('sophos-messages');
+  const promptButtons = document.querySelectorAll('.sophos-prompt');
+
+  const allowedTopics = [
+    'ai arsenal', 'oscar', 'project', 'projects', 'system', 'systems',
+    'contract', 'excel', 'readmit', 'readmission', 'analytics', 'data',
+    'python', 'sql', 'automation', 'machine learning', 'ai engineering',
+    'ai engineer', 'business intelligence', 'dashboard', 'workflow',
+    'contact', 'linkedin', 'youtube', 'demo'
+  ];
+
+  const blockedTopics = [
+    'recipe', 'food', 'pancake', 'malware', 'hack', 'exploit',
+    'password', 'politics', 'gambling', 'crypto advice'
+  ];
+
+  const addMessage = (text, sender = 'bot') => {
+    const bubble = document.createElement('div');
+    bubble.className =
+      sender === 'user'
+        ? 'ml-auto max-w-[85%] rounded-2xl bg-cyan-400 px-3 py-2 text-slate-950'
+        : 'max-w-[85%] rounded-2xl bg-white/5 px-3 py-2 text-slate-200';
+
+    bubble.textContent = text;
+    messages.appendChild(bubble);
+    messages.scrollTop = messages.scrollHeight;
+  };
+
+  const isAllowed = (question) => {
+    const cleanQuestion = question.toLowerCase();
+
+    if (blockedTopics.some((topic) => cleanQuestion.includes(topic))) {
+      return false;
+    }
+
+    return allowedTopics.some((topic) => cleanQuestion.includes(topic));
+  };
+
+  const getAnswer = (question) => {
+    const q = question.toLowerCase();
+
+    if (!isAllowed(q)) {
+      return 'I’m focused on AI Arsenal, Oscar’s AI systems, data analytics, automation, and project demos. Try asking about AI Contract Reviewer, Excel Whisperer, ReadmitGuard, or Oscar’s AI engineering work.';
+    }
+
+    if (q.includes('ai arsenal')) {
+      return 'AI Arsenal is Oscar Holguin’s portfolio of AI, analytics, and automation systems built to reduce manual work and deliver decision-ready insights.';
+    }
+
+    if (q.includes('contract')) {
+      return 'AI Contract Reviewer analyzes agreements, surfaces risk signals, extracts key fields, and turns contract complexity into clearer business insight.';
+    }
+
+    if (q.includes('excel')) {
+      return 'Excel Whisperer focuses on spreadsheet automation, data analysis, and insight generation using Python-driven workflows.';
+    }
+
+    if (q.includes('readmit') || q.includes('readmission')) {
+      return 'ReadmitGuard demonstrates healthcare analytics through patient readmission risk prediction, including manual single-patient scoring and CSV batch processing.';
+    }
+
+    if (q.includes('ai engineering') || q.includes('ai engineer')) {
+      return 'Oscar’s AI engineering work shows practical system design: local-first tools, data pipelines, model-assisted analysis, structured outputs, and user-focused decision workflows.';
+    }
+
+    if (q.includes('analytics') || q.includes('data')) {
+      return 'Oscar’s data analytics work focuses on transforming messy information into clear reporting, decision systems, dashboards, and operational insights.';
+    }
+
+    if (q.includes('python') || q.includes('sql')) {
+      return 'The AI Arsenal stack highlights Python, SQL, data processing, automation, machine learning concepts, and business intelligence workflows.';
+    }
+
+    if (q.includes('contact') || q.includes('linkedin')) {
+      return 'You can contact Oscar through LinkedIn or by email at AI.Arsenalenterprise@gmail.com.';
+    }
+
+    if (q.includes('youtube') || q.includes('demo')) {
+      return 'The live demos on this site connect to the AI Arsenal YouTube channel, where Oscar showcases working AI and analytics systems.';
+    }
+
+    return 'Oscar builds AI-powered data systems focused on automation, analytics, risk visibility, and decision clarity. Ask me about one of the featured systems.';
+  };
+
+  const askSophos = (question) => {
+    const trimmed = question.trim();
+
+    if (!trimmed) return;
+
+    addMessage(trimmed, 'user');
+
+    window.setTimeout(() => {
+      addMessage(getAnswer(trimmed), 'bot');
+    }, 250);
+  };
+
+  toggle?.addEventListener('click', () => {
+    panel?.classList.toggle('hidden');
+  });
+
+  closeButton?.addEventListener('click', () => {
+    panel?.classList.add('hidden');
+  });
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    askSophos(input.value);
+    input.value = '';
+  });
+
+  promptButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      askSophos(button.dataset.question || '');
+    });
+  });
+</script>
