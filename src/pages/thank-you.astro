@@ -6,7 +6,7 @@ import Layout from '../layouts/Layout.astro';
   <main class="min-h-screen bg-slate-950 px-6 py-20 text-white">
     <section class="mx-auto flex max-w-3xl flex-col items-center rounded-3xl border border-white/10 bg-white/5 p-10 text-center shadow-2xl shadow-cyan-950/40">
       <img
-        src="/images/AI_Arsenal_Logo.jpg"
+        src={`${import.meta.env.BASE_URL}images/AI_Arsenal_Logo.jpg`}
         alt="AI Arsenal logo"
         class="h-24 w-24 rounded-2xl object-cover shadow-2xl shadow-cyan-900/40"
       />
@@ -24,7 +24,7 @@ import Layout from '../layouts/Layout.astro';
       </p>
 
       <a
-        href="/"
+        href={import.meta.env.BASE_URL}
         class="mt-8 rounded-full bg-cyan-400 px-7 py-3 text-sm font-bold text-slate-950 transition hover:-translate-y-1 hover:bg-cyan-300"
       >
         Back to AI Arsenal
@@ -32,3 +32,6 @@ import Layout from '../layouts/Layout.astro';
     </section>
   </main>
 </Layout>
+
+
+
