@@ -1,46 +1,110 @@
-# Astro Starter Kit: Basics
+# AI Arsenal ⚔️
 
-```sh
-npm create astro@latest -- --template basics
-```
+A battle-tested, privacy-first AI portfolio showcasing real-world systems for automation, analytics, and decision support.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Built to demonstrate how AI can move beyond theory into **practical, production-ready tools**.
 
-## 🚀 Project Structure
+---
 
-Inside of your Astro project, you'll see the following folders and files:
+## 🚀 Live Site
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+👉 (Add after deployment)  
+`https://your-github-pages-link`
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+---
 
-## 🧞 Commands
+## 🧠 What This Is
 
-All commands are run from the root of the project, from a terminal:
+AI Arsenal is not a demo collection.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+It is a **system portfolio** designed to show:
 
-## 👀 Want to learn more?
+- Decision intelligence
+- Automation pipelines
+- Risk analysis systems
+- Applied AI in business workflows
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Each system solves a **real operational problem**.
+
+---
+
+## 🧩 Featured Systems
+
+### 🛡 AI Contract Reviewer (AICR)
+- Scans contracts in seconds
+- Identifies risks and red flags
+- Generates explainable summaries
+- Built for decision clarity
+
+---
+
+### 📊 Excel Whisperer
+- Automates spreadsheet workflows
+- Cleans and transforms messy data
+- Converts manual reporting into fast analysis
+
+---
+
+### 🏥 ReadmitGuard
+- Predicts 30-day hospital readmission risk
+- Focuses on explainability and clarity
+- Built using safe, synthetic datasets
+
+---
+
+## 🤖 Sophos — AI System Guide
+
+Sophos is an embedded assistant that:
+
+- Guides users through the portfolio
+- Explains systems in plain English
+- Suggests next steps dynamically
+- Simulates conversational UX without external APIs
+
+### Features:
+- Context-aware responses
+- Suggested next moves
+- Lightweight memory simulation
+- Clean, fast UI
+
+---
+
+## 🎥 Watch Demos
+
+👉 https://www.youtube.com/@AIArsenalArmory/videos
+
+---
+
+## ⚙️ Tech Stack
+
+- Astro (frontend framework)
+- Tailwind CSS (styling)
+- TypeScript / JavaScript
+- Local-first architecture
+- No external AI APIs (privacy-first)
+
+---
+
+## 🔐 Security & Privacy
+
+- No user data stored
+- No external API calls
+- No file uploads accepted
+- Designed for safe, local interaction
+
+---
+
+## 📬 Contact
+
+Use the contact form on the site or reach out via:
+
+- LinkedIn
+- Email (via form submission)
+
+---
+
+## 🛠 Local Development
+
+```bash
+npm install
+npm run dev
