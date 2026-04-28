@@ -8,7 +8,7 @@ import Layout from '../layouts/Layout.astro';
       <img
         src={`${import.meta.env.BASE_URL}images/AI_Arsenal_Logo.jpg`}
         alt="AI Arsenal logo"
-        class="h-32 w-32 rounded-3xl object-cover shadow-2xl shadow-cyan-500/30 md:h-40 md:w-40"
+        class="thank-you-logo h-44 w-44 rounded-3xl object-cover shadow-2xl shadow-cyan-500/50 md:h-56 md:w-56"
       />
 
       <p class="mt-8 text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
@@ -48,7 +48,47 @@ import Layout from '../layouts/Layout.astro';
         transform: translateY(0) scale(1);
       }
     }
-  </style>
+    /* WAYPOINT: LOGO_GLOW */
+  .thank-you-reveal img {
+    filter: drop-shadow(0 0 18px rgba(0, 255, 200, 0.35));
+  }
+  /* WAYPOINT: THANK_YOU_LOGO_ANIMATION */
+  .thank-you-logo {
+    animation: logoArrival 900ms ease-out 120ms both, logoPulse 3.2s ease-in-out 1.2s infinite;
+    transform-origin: center;
+  }
+
+  @keyframes logoArrival {
+    0% {
+      opacity: 0;
+      transform: translateY(-10px) scale(0.88);
+      filter: drop-shadow(0 0 0 rgba(0, 255, 200, 0));
+    }
+
+    70% {
+      opacity: 1;
+      transform: translateY(0) scale(1.04);
+      filter: drop-shadow(0 0 24px rgba(0, 255, 200, 0.45));
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: drop-shadow(0 0 18px rgba(0, 255, 200, 0.35));
+    }
+  }
+  @keyframes logoPulse {
+    0%, 100% {
+      transform: scale(1);
+      filter: drop-shadow(0 0 18px rgba(0, 255, 200, 0.35));
+    }
+
+    50% {
+      transform: scale(1.035);
+      filter: drop-shadow(0 0 28px rgba(0, 255, 200, 0.50));
+    }
+  }
+</style>
 
   <script>
     // WAYPOINT: THANK_YOU_SCROLL_TOP
@@ -57,6 +97,11 @@ import Layout from '../layouts/Layout.astro';
     });
   </script>
 </Layout>
+
+
+
+
+
 
 
 
