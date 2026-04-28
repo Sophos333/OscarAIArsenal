@@ -4,7 +4,7 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="Message Received | AI Arsenal">
   <main class="min-h-screen bg-slate-950 px-6 py-20 text-white">
-    <section class="mx-auto flex max-w-3xl flex-col items-center rounded-3xl border border-white/10 bg-white/5 p-10 text-center shadow-2xl shadow-cyan-950/40">
+    <section class="thank-you-reveal mx-auto flex max-w-3xl flex-col items-center rounded-3xl border border-white/10 bg-white/5 p-10 text-center shadow-2xl shadow-cyan-950/40">
       <img
         src={`${import.meta.env.BASE_URL}images/AI_Arsenal_Logo.jpg`}
         alt="AI Arsenal logo"
@@ -31,7 +31,33 @@ import Layout from '../layouts/Layout.astro';
       </a>
     </section>
   </main>
+  <style>
+    /* WAYPOINT: THANK_YOU_POLISH */
+    .thank-you-reveal {
+      animation: thankYouReveal 700ms ease-out both;
+    }
+
+    @keyframes thankYouReveal {
+      from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+  </style>
+
+  <script>
+    // WAYPOINT: THANK_YOU_SCROLL_TOP
+    window.addEventListener("load", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  </script>
 </Layout>
+
 
 
 
