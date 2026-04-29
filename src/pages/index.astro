@@ -16,7 +16,8 @@ const systems = [
     description:
       'Secure, role-based AI knowledge engine that delivers different answers from the same source based on user role.',
     videoUrl: 'https://www.youtube.com/embed/jBkj_bx1O8E',
-    tags: ['AI', 'RBAC', 'Security']
+    tags: ['AI', 'RBAC', 'Security'],
+    link: '/projects/cerebro'
   },
   {
     title: 'Excel Whisperer',
@@ -43,7 +44,7 @@ const systems = [
 ---
 
 <Layout>
-  <main class="min-h-screen bg-slate-950 text-white">
+  <main class="pt-20 min-h-screen bg-slate-950 text-white">
     <section class="relative overflow-hidden px-6 py-24 sm:px-10 lg:px-16">
       <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(124,58,237,0.35),transparent_30%),radial-gradient(circle_at_top_right,rgba(6,182,212,0.25),transparent_30%)]"></div>
 
@@ -183,6 +184,14 @@ const systems = [
                     </span>
                   ))}
                 </div>
+              {system.link && (
+                <a
+                  href={`${import.meta.env.BASE_URL}${system.link.replace(/^\//, "")}`}
+                  class="group inline-flex items-center gap-2 mt-6 px-5 py-2.5 rounded-full border border-cyan-400/30 bg-cyan-400/10 text-sm font-semibold text-cyan-300 transition-all duration-300 hover:bg-cyan-400/20 hover:border-cyan-300 hover:shadow-[0_0_20px_rgba(34,211,238,0.35)] hover:-translate-y-1"
+                >
+                  <span>View Details</span><span class="transition-transform duration-300 group-hover:translate-x-2">→</span>
+                </a>
+              )}
               </div>
             </article>
           ))}
@@ -208,6 +217,15 @@ const systems = [
     }
   </style>
 </Layout>
+
+
+
+
+
+
+
+
+
 
 
 

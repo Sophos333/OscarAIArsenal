@@ -1,0 +1,106 @@
+﻿---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout>
+  <main class="pt-20 min-h-screen bg-slate-950 text-white px-6 py-20">
+
+    <!-- HERO -->
+    <section class="mx-auto max-w-5xl text-center">
+      <h1 class="text-4xl md:text-5xl font-bold">
+        Same question. Same document. Different answers.
+      </h1>
+
+      <p class="mt-4 text-slate-400 max-w-2xl mx-auto">
+        Cerebro is a secure, role-based AI knowledge engine that controls how information is delivered across an organization.
+      </p>
+
+      <div class="mt-10 rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-cyan-900/30">
+        <iframe
+          class="w-full aspect-video"
+          src="https://www.youtube.com/embed/jBkj_bx1O8E"
+          title="Cerebro Demo"
+          frameborder="0"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
+
+    <!-- PROBLEM / SOLUTION / OUTCOME -->
+    <section class="mt-20 mx-auto max-w-6xl grid md:grid-cols-3 gap-8">
+
+      <div class="bg-white/5 p-6 rounded-2xl border border-white/10">
+        <h3 class="text-xl font-semibold text-cyan-400">Problem</h3>
+        <ul class="mt-4 text-slate-400 space-y-2 text-sm">
+          <li>Too much access to sensitive data</li>
+          <li>Employees struggle to find information</li>
+          <li>Decision-making slows down</li>
+        </ul>
+      </div>
+
+      <div class="bg-white/5 p-6 rounded-2xl border border-white/10">
+        <h3 class="text-xl font-semibold text-cyan-400">Solution</h3>
+        <ul class="mt-4 text-slate-400 space-y-2 text-sm">
+          <li>Role-aware AI responses</li>
+          <li>Same source, different outputs</li>
+          <li>Dynamic access control</li>
+        </ul>
+      </div>
+
+      <div class="bg-white/5 p-6 rounded-2xl border border-white/10">
+        <h3 class="text-xl font-semibold text-cyan-400">Outcome</h3>
+        <ul class="mt-4 text-slate-400 space-y-2 text-sm">
+          <li>Faster decisions</li>
+          <li>Zero data leaks</li>
+          <li>Clear accountability</li>
+        </ul>
+      </div>
+
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="mt-20 mx-auto max-w-4xl text-center">
+      <h2 class="text-3xl font-bold">How It Works</h2>
+
+      <p class="mt-4 text-slate-400">
+        Cerebro dynamically adjusts responses based on the user's role. Instead of controlling access alone, it controls understanding.
+      </p>
+
+      <div class="mt-10 grid md:grid-cols-3 gap-6">
+
+        <div class="bg-white/5 p-5 rounded-xl border border-white/10">
+          <p class="font-semibold">Employees</p>
+          <p class="text-sm text-slate-400 mt-2">General safe information</p>
+        </div>
+
+        <div class="bg-white/5 p-5 rounded-xl border border-white/10">
+          <p class="font-semibold">Managers / HR</p>
+          <p class="text-sm text-slate-400 mt-2">Operational insights</p>
+        </div>
+
+        <div class="bg-white/5 p-5 rounded-xl border border-white/10">
+          <p class="font-semibold">Executives</p>
+          <p class="text-sm text-slate-400 mt-2">Full strategic visibility</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="mt-24 text-center">
+      <h2 class="text-2xl font-bold">Built for real organizations</h2>
+
+      <p class="mt-4 text-slate-400">
+        Secure. Role-aware. On-prem. Designed for teams that need clarity without compromise.
+      </p>
+
+      <a href={`${import.meta.env.BASE_URL}#contact`} class="inline-block mt-8 px-6 py-3 bg-cyan-500 text-black rounded-full font-semibold hover:bg-cyan-400 transition">
+        Let's build something like this
+      </a>
+    </section>
+
+  </main>
+</Layout>
+
+
+
