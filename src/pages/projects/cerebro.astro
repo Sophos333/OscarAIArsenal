@@ -88,19 +88,20 @@ import Layout from '../../layouts/Layout.astro';
 
     <!-- CTA -->
     <section class="mt-24 text-center">
-      <h2 class="text-2xl font-bold">Built for real organizations</h2>
+      <h2 class="text-2xl font-bold text-white drop-shadow-[0_0_10px_rgba(34,211,238,0.4)]">Built for real organizations</h2>
 
       <p class="mt-4 text-slate-400">
         Secure. Role-aware. On-prem. Designed for teams that need clarity without compromise.
       </p>
 
-      <a href={`${import.meta.env.BASE_URL}#contact`} class="inline-block mt-8 px-6 py-3 bg-cyan-500 text-black rounded-full font-semibold hover:bg-cyan-400 transition">
-        Let's build something like this
+      <a href={`${import.meta.env.BASE_URL}#contact`} class="group inline-flex items-center gap-2 mt-8 px-6 py-3 rounded-full border border-cyan-400/30 bg-cyan-400/10 text-sm font-semibold text-cyan-300 transition-all duration-300 hover:bg-cyan-400/20 hover:border-cyan-300 hover:shadow-[0_0_25px_rgba(34,211,238,0.45)] hover:-translate-y-1">
+        <span>Let's build something like this</span><span class='transition-transform duration-300 group-hover:translate-x-2'>→</span>
       </a>
     </section>
 
   </main>
 </Layout>
+
 
 
 
