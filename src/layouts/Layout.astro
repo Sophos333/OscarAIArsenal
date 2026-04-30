@@ -21,11 +21,11 @@ import '../styles/global.css';
       </a>
 
       <div class="flex gap-6 text-sm">
-        <a href={`${import.meta.env.BASE_URL}`} class="text-slate-300 hover:text-cyan-300 transition">
+        <a href={`${import.meta.env.BASE_URL}`} class="relative text-slate-300 transition-all duration-300 hover:text-cyan-300 hover:-translate-y-[1px] after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-cyan-300 after:transition-all after:duration-300 hover:after:w-full">
           Home
         </a>
 
-        <a href={`${import.meta.env.BASE_URL}#contact`} class="text-slate-300 hover:text-cyan-300 transition">
+        <a href={`${import.meta.env.BASE_URL}#contact`} class="relative text-slate-300 transition-all duration-300 hover:text-cyan-300 hover:-translate-y-[1px] after:absolute after:-bottom-1 after:left-0 after:h-px after:w-0 after:bg-cyan-300 after:transition-all after:duration-300 hover:after:w-full">
           Contact
         </a>
       </div>
@@ -44,3 +44,6 @@ import '../styles/global.css';
 		height: 100%;
 	}
 </style>
+
+
+
