@@ -1,0 +1,79 @@
+﻿---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout>
+  <main class="min-h-screen bg-slate-950 px-6 py-28 text-white sm:px-10 lg:px-16">
+    <section class="mx-auto max-w-6xl text-center">
+      <p class="text-sm font-bold tracking-[0.35em] text-cyan-300">
+        AI CONTRACT REVIEWER
+      </p>
+
+      <h1 class="mx-auto mt-6 max-w-5xl text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
+        See contract risk before it becomes a decision.
+      </h1>
+
+      <p class="mx-auto mt-6 max-w-3xl text-lg leading-8 text-slate-300">
+        AI Contract Reviewer transforms complex agreements into structured, explainable insights so leaders can act with clarity, speed, and confidence.
+      </p>
+
+      <div class="mx-auto mt-14 overflow-hidden rounded-3xl border border-white/10 bg-black shadow-2xl shadow-cyan-950/40">
+        <iframe
+          src="https://www.youtube.com/embed/CkHkTkwjyb4"
+          class="aspect-video w-full"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </section>
+
+    <section class="mx-auto mt-20 grid max-w-6xl gap-6 md:grid-cols-3">
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+        <h2 class="text-xl font-bold text-cyan-300">Problem</h2>
+        <p class="mt-4 text-slate-300">
+          Executives rely on contracts to make high-stakes decisions, but manual review is slow, inconsistent, and prone to missed risk.
+        </p>
+        <p class="mt-3 text-slate-300">
+          Limited visibility into clauses, obligations, and exposure creates uncertainty, delays, and potential financial or legal impact.
+        </p>
+      </div>
+
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+        <h2 class="text-xl font-bold text-cyan-300">Solution</h2>
+        <p class="mt-4 text-slate-300">
+          AI Contract Reviewer delivers structured, explainable analysis with controlled extraction of key terms, risks, and obligations.
+        </p>
+        <p class="mt-3 text-slate-300">
+          Every output is traceable to source text, enforced through read-only processing, governed logic, and deterministic results.
+        </p>
+      </div>
+
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-6">
+        <h2 class="text-xl font-bold text-cyan-300">Outcome</h2>
+        <p class="mt-4 text-slate-300">
+          Faster, confident decision-making with full visibility into contract risk.
+        </p>
+        <p class="mt-3 text-slate-300">
+          Leadership gains consistent, audit-ready insights without relying on manual review or exposing sensitive systems.
+        </p>
+      </div>
+    </section>
+
+    <section class="mx-auto mt-24 max-w-5xl text-center">
+      <h2 class="text-2xl font-bold text-white drop-shadow-[0_0_10px_rgba(34,211,238,0.4)]">
+        Built for real organizations
+      </h2>
+
+      <p class="mx-auto mt-5 max-w-3xl text-slate-300">
+        AI Contract Reviewer gives leadership full visibility into contract risk with structured, explainable outputs they can trust. Every decision is backed by traceable data, not guesswork or manual review.
+      </p>
+
+      <a
+        href={`${import.meta.env.BASE_URL}#contact`}
+        class="group mt-10 inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-6 py-3 text-sm font-semibold text-cyan-300 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300 hover:bg-cyan-400/20 hover:shadow-[0_0_25px_rgba(34,211,238,0.45)]"
+      >
+        <span>Let’s build something like this</span>
+        <span class="transition-transform duration-300 group-hover:translate-x-2">→</span>
+      </a>
+    </section>
+  </main>
+</Layout>
