@@ -14,7 +14,8 @@
 
   <div
     id="sophos-panel"
-    class="fixed inset-x-3 bottom-3 hidden h-[82vh] flex-col overflow-hidden rounded-3xl border border-white/10 bg-slate-950/95 text-white shadow-2xl shadow-cyan-950/50 backdrop-blur sm:static sm:h-[78vh] sm:w-[410px]"
+    data-base-url={import.meta.env.BASE_URL}
+    class="fixed inset-3 hidden min-h-0 flex-col overflow-hidden rounded-3xl border border-white/10 bg-slate-950/95 text-white shadow-2xl shadow-cyan-950/50 backdrop-blur sm:inset-auto sm:bottom-6 sm:right-6 sm:h-[720px] sm:max-h-[calc(100vh-3rem)] sm:w-[480px]"
   >
     <div class="border-b border-white/10 bg-white/5 p-4">
       <div class="flex items-center justify-between gap-4">
@@ -33,60 +34,13 @@
       </div>
     </div>
 
-    <div id="sophos-messages" class="h-[390px] flex-1 space-y-3 overflow-y-auto px-4 pb-4 pt-4 text-sm">
+    <div id="sophos-messages" class="min-h-0 flex-1 space-y-3 overflow-y-auto px-4 py-4 text-sm">
       <div class="rounded-2xl bg-cyan-400/10 p-3 text-cyan-100">
-        Hello, I’m Sophos. Ask me about AI Arsenal, Oscar’s systems, AI engineering, data analytics, automation, or the live demos.
+        Hello, I’m Sophos, AI Arsenal Enterprise’s system guide. Ask me about Oscar, our systems, responsible AI, demonstrations, or how to contact us.
       </div>
     </div>
 
-        <!-- WAYPOINT: SOPHOS_QUICK_PROMPTS_COLLAPSIBLE -->
-    <details class="border-t border-white/10 p-3">
-      <summary class="cursor-pointer list-none rounded-xl border border-cyan-400/20 bg-cyan-400/10 px-3 py-2 text-sm font-bold text-cyan-100 transition hover:bg-cyan-400/15">
-        Quick questions Sophos can answer
-        <span class="ml-2 text-xs font-normal text-cyan-300">Click to expand or collapse</span>
-      </summary>
-
-      <div class="mt-2 grid max-h-[105px] gap-2 overflow-y-auto pr-1">
-        <button class="sophos-prompt rounded-xl bg-white/5 px-3 py-2 text-left text-xs text-slate-200 transition hover:-translate-y-[1px] hover:bg-cyan-400/10" data-question="What is AI Arsenal?">
-          What is AI Arsenal?
-        </button>
-
-        <button class="sophos-prompt rounded-xl bg-white/5 px-3 py-2 text-left text-xs text-slate-200 transition hover:-translate-y-[1px] hover:bg-cyan-400/10" data-question="What systems has Oscar built?">
-          What systems has Oscar built?
-        </button>
-
-        <button class="sophos-prompt rounded-xl bg-white/5 px-3 py-2 text-left text-xs text-slate-200 transition hover:-translate-y-[1px] hover:bg-cyan-400/10" data-question="Why should someone hire Oscar?">
-          Why should someone hire Oscar?
-        </button>
-
-        <button class="sophos-prompt rounded-xl bg-white/5 px-3 py-2 text-left text-xs text-slate-200 transition hover:-translate-y-[1px] hover:bg-cyan-400/10" data-question="How does this work under the hood?">
-          How does this work under the hood?
-        </button>
-
-        <button class="sophos-prompt rounded-xl bg-white/5 px-3 py-2 text-left text-xs text-slate-200 transition hover:-translate-y-[1px] hover:bg-cyan-400/10" data-question="How is this different from ChatGPT?">
-          How is this different from ChatGPT?
-        </button>
-
-        <button class="sophos-prompt rounded-xl bg-white/5 px-3 py-2 text-left text-xs text-slate-200 transition hover:-translate-y-[1px] hover:bg-cyan-400/10" data-question="Which demo should I watch first?">
-          Which demo should I watch first?
-        </button>
-
-        <button class="sophos-prompt rounded-xl bg-white/5 px-3 py-2 text-left text-xs text-slate-200 transition hover:-translate-y-[1px] hover:bg-cyan-400/10" data-question="How can I contact Oscar?">
-          How can I contact Oscar?
-        </button>
-      </div>
-    </details>
-<div class="border-t border-white/10 px-3 pt-2">
-      <button
-        id="sophos-close-bottom"
-        type="button"
-        class="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold text-slate-300 transition hover:bg-white/10"
-      >
-        Close Sophos
-      </button>
-    </div>
-
-    <form id="sophos-form" class="flex gap-2 border-t border-white/10 p-3">
+    <form id="sophos-form" class="flex shrink-0 gap-2 border-t border-white/10 p-3">
       <input
         id="sophos-input"
         type="text"
@@ -105,8 +59,8 @@
 <script>
   const toggle = document.getElementById('sophos-toggle');
   const panel = document.getElementById('sophos-panel');
+  const baseUrl = panel?.dataset.baseUrl || '/';
   const closeButton = document.getElementById('sophos-close');
-  const closeButtonBottom = document.getElementById('sophos-close-bottom');
   const form = document.getElementById('sophos-form');
   const input = document.getElementById('sophos-input');
   const messages = document.getElementById('sophos-messages');
@@ -114,6 +68,148 @@
 
   let lastIntent = '';
   let lastTopicLabel = '';
+
+  const intentActions = {
+    overview: [
+      {
+        label: 'Explore systems',
+        href: `${baseUrl}#systems`,
+        closePanel: true
+      },
+      {
+        label: 'Contact AI Arsenal',
+        href: `${baseUrl}#contact`,
+        closePanel: true
+      }
+    ],
+    founder: [
+      {
+        label: 'Contact Oscar',
+        href: `${baseUrl}#contact`,
+        closePanel: true
+      },
+      {
+        label: 'Connect on LinkedIn',
+        href: 'https://www.linkedin.com/in/yashuasspear-oscar-holguin-silva/',
+        external: true
+      }
+    ],
+    systems: [
+      {
+        label: 'Explore systems and demos',
+        href: `${baseUrl}#systems`,
+        closePanel: true
+      }
+    ],
+    contract: [
+      {
+        label: 'View AI Contract Reviewer',
+        href: `${baseUrl}projects/aicr/`
+      },
+      {
+        label: 'Discuss AICR',
+        href: `${baseUrl}#contact`,
+        closePanel: true
+      }
+    ],
+    warhorn: [
+      {
+        label: 'Discuss Warhorn',
+        href: `${baseUrl}#contact`,
+        closePanel: true
+      },
+      {
+        label: 'Call AI Arsenal',
+        href: 'tel:+14078539365'
+      }
+    ],
+    aegis: [
+      {
+        label: 'View Aegis',
+        href: `${baseUrl}projects/aegis/`
+      },
+      {
+        label: 'Discuss Aegis',
+        href: `${baseUrl}#contact`,
+        closePanel: true
+      }
+    ],
+    cerebro: [
+      {
+        label: 'View Cerebro',
+        href: `${baseUrl}projects/cerebro/`
+      },
+      {
+        label: 'Discuss Cerebro',
+        href: `${baseUrl}#contact`,
+        closePanel: true
+      }
+    ],
+    excel: [
+      {
+        label: 'View systems and demos',
+        href: `${baseUrl}#systems`,
+        closePanel: true
+      }
+    ],
+    readmit: [
+      {
+        label: 'View systems and demos',
+        href: `${baseUrl}#systems`,
+        closePanel: true
+      }
+    ],
+    hiring: [
+      {
+        label: 'Contact Oscar',
+        href: `${baseUrl}#contact`,
+        closePanel: true
+      },
+      {
+        label: 'Connect on LinkedIn',
+        href: 'https://www.linkedin.com/in/yashuasspear-oscar-holguin-silva/',
+        external: true
+      }
+    ],
+    demo: [
+      {
+        label: 'View systems and demos',
+        href: `${baseUrl}#systems`,
+        closePanel: true
+      }
+    ],
+    boundaries: [
+      {
+        label: 'View AI Contract Reviewer',
+        href: `${baseUrl}projects/aicr/`
+      },
+      {
+        label: 'Contact AI Arsenal',
+        href: `${baseUrl}#contact`,
+        closePanel: true
+      }
+    ],
+    contact: [
+      {
+        label: 'Call (407) 853-9365',
+        href: 'tel:+14078539365'
+      },
+      {
+        label: 'Open contact form',
+        href: `${baseUrl}#contact`,
+        closePanel: true
+      },
+      {
+        label: 'Email AI Arsenal',
+        href: 'mailto:AI.Arsenalenterprise@gmail.com'
+      },
+      {
+        label: 'Connect on LinkedIn',
+        href: 'https://www.linkedin.com/in/yashuasspear-oscar-holguin-silva/',
+        external: true
+      }
+    ]
+  };
 
   const normalize = (value) => {
     return value.toLowerCase().replace(/[^\w\s]/g, '').replace(/\s+/g, ' ').trim();
@@ -139,6 +235,42 @@
     messages.scrollTop = messages.scrollHeight;
   };
 
+  const addIntentActions = (intentName) => {
+    const actions = intentActions[intentName] || [];
+
+    if (!actions.length) {
+      return;
+    }
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'flex flex-wrap gap-2 pt-1';
+
+    actions.forEach((action) => {
+      const link = document.createElement('a');
+      link.href = action.href;
+      link.textContent = action.label;
+      link.className =
+        'inline-flex items-center justify-center rounded-full border border-cyan-400/25 bg-cyan-400/10 px-3 py-2 text-xs font-semibold text-cyan-100 transition hover:-translate-y-[1px] hover:border-cyan-300 hover:bg-cyan-400/20';
+
+      if (action.external) {
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+      }
+
+      if (action.closePanel) {
+        link.addEventListener('click', () => {
+          panel?.classList.add('hidden');
+          panel?.classList.remove('flex');
+        });
+      }
+
+      wrapper.appendChild(link);
+    });
+
+    messages.appendChild(wrapper);
+    messages.scrollTop = messages.scrollHeight;
+  };
+
   const clearFollowUps = () => {
     document.getElementById('sophos-followups')?.remove();
   };
@@ -147,18 +279,24 @@
     clearFollowUps();
 
     const suggestions = {
-      overview: ['What systems has Oscar built?', 'Which demo should I watch first?', 'Why should someone hire Oscar?'],
-      systems: ['What is AI Contract Reviewer?', 'What is Excel Whisperer?', 'What is ReadmitGuard?'],
-      contract: ['How does this work under the hood?', 'What problem does this solve?', 'Which demo should I watch first?'],
+      overview: ['Who is Oscar?', 'What systems has AI Arsenal built?', 'Which demo should I watch first?'],
+      founder: ['What systems has Oscar built?', 'Why should someone hire Oscar?', 'How can I contact AI Arsenal?'],
+      systems: ['What is AI Contract Reviewer?', 'What is Warhorn?', 'What is Aegis?'],
+      contract: ['Does this replace a lawyer?', 'How does this work under the hood?', 'Which demo should I watch first?'],
+      warhorn: ['How will Warhorn handle missed calls?', 'How can I contact AI Arsenal?', 'What systems has AI Arsenal built?'],
+      aegis: ['What business problem does Aegis solve?', 'What is responsible AI?', 'What systems has AI Arsenal built?'],
+      cerebro: ['What business problem does Cerebro solve?', 'What is responsible AI?', 'What systems has AI Arsenal built?'],
       excel: ['How does this work under the hood?', 'What business problem does it solve?', 'How is this different from ChatGPT?'],
       readmit: ['How does ReadmitGuard predict risk?', 'What business problem does it solve?', 'Which demo should I watch first?'],
-      technical: ['What tools were used?', 'How is this different from ChatGPT?', 'What systems has Oscar built?'],
-      business: ['Why should someone hire Oscar?', 'How can I contact Oscar?', 'Which demo should I watch first?'],
-      hiring: ['How can I contact Oscar?', 'What systems has Oscar built?', 'What AI engineering skills does Oscar show?'],
-      chatgpt: ['How does this work under the hood?', 'What business problem does it solve?', 'What systems has Oscar built?'],
-      contact: ['What systems has Oscar built?', 'Why should someone hire Oscar?', 'Which demo should I watch first?']
+      technical: ['What tools were used?', 'How is this different from ChatGPT?', 'What systems has AI Arsenal built?'],
+      business: ['Why should someone hire Oscar?', 'How can I contact AI Arsenal?', 'Which demo should I watch first?'],
+      hiring: ['How can I contact AI Arsenal?', 'What systems has Oscar built?', 'What AI engineering skills does Oscar show?'],
+      chatgpt: ['How does this work under the hood?', 'What business problem does it solve?', 'What systems has AI Arsenal built?'],
+      demo: ['What is AI Contract Reviewer?', 'What systems has AI Arsenal built?', 'How can I contact AI Arsenal?'],
+      responsible: ['Does this replace human review?', 'How does AI Arsenal handle privacy?', 'What systems has AI Arsenal built?'],
+      boundaries: ['What is AI Contract Reviewer?', 'What is responsible AI?', 'How can I contact AI Arsenal?'],
+      contact: ['Who is Oscar?', 'What systems has AI Arsenal built?', 'Which demo should I watch first?']
     };
-
     const options = suggestions[intentName] || suggestions.overview;
 
     const wrapper = document.createElement('div');
@@ -210,7 +348,14 @@
       if (i > text.length) {
         bubble.textContent = text;
         clearInterval(typing);
-        addFollowUps(intentName || lastIntent || 'overview');
+
+        const resolvedIntent =
+          intentName ||
+          lastIntent ||
+          'overview';
+
+        addIntentActions(resolvedIntent);
+        addFollowUps(resolvedIntent);
       }
     }, 12);
   };
@@ -218,32 +363,58 @@
   const intents = [
     {
       name: 'overview',
-      label: 'AI Arsenal',
-      keywords: ['hi', 'hello', 'hey', 'ai arsenal', 'what is this', 'what do you do', 'what is this site', 'what am i looking at', 'help'],
+      label: 'AI Arsenal Enterprise',
+      keywords: ['hi', 'hello', 'hey', 'ai arsenal', 'ai arsenal enterprise', 'what is this', 'what do you do', 'what is this site', 'what am i looking at', 'company', 'help'],
       answers: [
-        'Welcome in. AI Arsenal is Oscar Holguin’s portfolio of AI, analytics, and automation systems built to reduce manual work and deliver decision-ready insights.',
-        'You’re looking at AI Arsenal, a showcase of practical AI and data systems designed around automation, analytics, and business decision clarity.',
-        'AI Arsenal is built to show working systems, not just project screenshots. The focus is proof, demos, and real-world use cases.'
+        'AI Arsenal Enterprise is a human-led applied AI company building governed systems for contract review, customer communications, analytics, knowledge retrieval, automation, and decision support. The goal is to reduce manual work, surface useful evidence, and keep people in control of important decisions.'
+      ]
+    },
+    {
+      name: 'founder',
+      label: 'Oscar Holguin Silva',
+      keywords: ['who is oscar', 'about oscar', 'oscar holguin', 'founder', 'owner', 'oscars background', 'former soldier'],
+      answers: [
+        'Oscar Holguin Silva is the founder and principal builder behind AI Arsenal Enterprise. He is a former U.S. Army soldier and an applied AI, data, automation, and web professional who builds human-led systems for operational clarity, responsible decision support, and reduced manual work.'
       ]
     },
     {
       name: 'systems',
-      label: 'Oscar’s systems',
-      keywords: ['projects', 'systems', 'what has oscar built', 'portfolio', 'tools', 'demos'],
+      label: 'AI Arsenal systems',
+      keywords: ['projects', 'systems', 'what has oscar built', 'what systems has oscar built', 'what systems has ai arsenal built', 'portfolio', 'tools', 'products', 'demos'],
       answers: [
-        'Oscar has built AI Contract Reviewer, Excel Whisperer, and ReadmitGuard. Each system shows a different kind of applied AI, analytics, automation, or prediction workflow.',
-        'The featured systems are AI Contract Reviewer for risk analysis, Excel Whisperer for spreadsheet automation, and ReadmitGuard for healthcare prediction workflows.',
-        'These systems demonstrate practical AI product thinking: input, analysis, structured output, and decision support.'
+        'AI Arsenal’s system family includes AI Contract Reviewer, Warhorn, Aegis, Cerebro, Excel Whisperer, and ReadmitGuard. They address contract review, customer communications, governed data access, knowledge retrieval, spreadsheet intelligence, and predictive analytics. Some are demonstrated on this site while others are still being developed and tested.'
       ]
     },
     {
       name: 'contract',
       label: 'AI Contract Reviewer',
-      keywords: ['contract', 'reviewer', 'legal', 'risk analysis', 'agreement'],
+      keywords: ['contract', 'reviewer', 'risk analysis', 'agreement', 'clause', 'aicr'],
       answers: [
-        'AI Contract Reviewer analyzes agreements, surfaces risk signals, extracts key fields, and turns contract complexity into clearer business insight.',
-        'The contract system is designed to help users scan agreements faster, identify risks, and understand key terms without getting lost in the full document.',
-        'AI Contract Reviewer demonstrates risk detection, field extraction, source-aware review, and decision-ready summaries.'
+        'AI Contract Reviewer provides a structured first pass over agreements. It surfaces risk signals, extracts important terms, supports source-aware review, and produces evidence-backed summaries for human evaluation.'
+      ]
+    },
+    {
+      name: 'warhorn',
+      label: 'Warhorn',
+      keywords: ['warhorn', 'incoming calls', 'missed calls', 'caller', 'phone assistant', 'lead capture'],
+      answers: [
+        'Warhorn is an AI Arsenal communications and intake application being developed to capture incoming inquiries, organize caller information, support approved AI-assisted conversations, and create reliable follow-up records. Telephony and n8n integrations are still being built and tested.'
+      ]
+    },
+    {
+      name: 'aegis',
+      label: 'Aegis',
+      keywords: ['aegis', 'what business problem does aegis solve', 'governed data', 'read only sql', 'safe data access'],
+      answers: [
+        'Aegis is a governed data-access and decision-support system designed around safe, read-only workflows, explicit authority boundaries, and auditable outputs.'
+      ]
+    },
+    {
+      name: 'cerebro',
+      label: 'Cerebro',
+      keywords: ['cerebro', 'what business problem does cerebro solve', 'knowledge assistant', 'knowledge retrieval', 'local knowledge'],
+      answers: [
+        'Cerebro is AI Arsenal’s privacy-conscious knowledge assistant for working with approved information and helping users retrieve useful answers from controlled sources. Its broader productization is still in progress.'
       ]
     },
     {
@@ -251,9 +422,7 @@
       label: 'Excel Whisperer',
       keywords: ['excel', 'whisperer', 'spreadsheet', 'reporting', 'manual reporting'],
       answers: [
-        'Excel Whisperer focuses on spreadsheet automation, data analysis, and insight generation using Python-driven workflows.',
-        'Excel Whisperer is built around a common business problem: too much manual spreadsheet work and not enough fast insight.',
-        'The Excel system shows how Python and automation can turn spreadsheet-heavy workflows into faster, cleaner analysis.'
+        'Excel Whisperer focuses on spreadsheet intelligence, data analysis, and insight generation using Python-driven workflows. It is designed to reduce repetitive spreadsheet work and help users reach useful findings faster.'
       ]
     },
     {
@@ -261,19 +430,15 @@
       label: 'ReadmitGuard',
       keywords: ['readmit', 'readmission', 'healthcare', 'patient', 'prediction', 'csv'],
       answers: [
-        'ReadmitGuard demonstrates healthcare analytics through patient readmission risk prediction, including manual single-patient scoring and CSV batch processing.',
-        'ReadmitGuard shows how predictive analytics can support healthcare decision workflows by estimating readmission risk from patient data.',
-        'The ReadmitGuard demos show two workflows: single-patient manual entry and CSV batch prediction for larger datasets.'
+        'ReadmitGuard demonstrates predictive healthcare analytics through patient readmission-risk estimation, including individual scoring and CSV batch-processing workflows. Its outputs are decision support and do not replace clinical judgment.'
       ]
     },
     {
       name: 'technical',
       label: 'technical architecture',
-      keywords: ['under the hood', 'how does this work', 'tech stack', 'python', 'sql', 'machine learning', 'ai model', 'architecture'],
+      keywords: ['under the hood', 'how does this work', 'tech stack', 'python', 'sql', 'machine learning', 'ai model', 'architecture', 'tools were used'],
       answers: [
-        'Operator view: the AI Arsenal stack highlights Python, SQL, data processing, automation, machine learning concepts, Streamlit apps, and business intelligence workflows.',
-        'Under the hood, these systems usually combine data ingestion, cleaning, analysis logic, structured outputs, and a user-facing interface for decision support.',
-        'The technical pattern is practical: collect the data, structure it, analyze it, surface insights, and present the result in a way a user can act on.'
+        'AI Arsenal systems commonly combine structured intake, validation, analysis logic, evidence or traceability, controlled outputs, and a user-facing workflow. The broader stack includes Python, SQL, Streamlit, FastAPI, analytics, automation, machine learning, and governed review patterns.'
       ]
     },
     {
@@ -281,19 +446,15 @@
       label: 'business value',
       keywords: ['business', 'help my business', 'problems', 'solve', 'manual work', 'time save', 'replace manual', 'value'],
       answers: [
-        'AI Arsenal systems are designed to reduce manual work, surface important risks or patterns, and help teams make clearer decisions faster.',
-        'The business value is workflow clarity: fewer manual steps, better visibility, faster analysis, and more consistent decision support.',
-        'These tools help by turning messy data, documents, or workflows into structured outputs that leaders can act on.'
+        'AI Arsenal systems are designed to reduce manual work, improve visibility, surface important risks or patterns, and help teams make clearer decisions without surrendering human authority.'
       ]
     },
     {
       name: 'hiring',
-      label: 'hiring Oscar',
-      keywords: ['hire', 'available', 'recruiter', 'job', 'remote', 'work with', 'roles', 'why hire'],
+      label: 'working with Oscar',
+      keywords: ['hire', 'available', 'recruiter', 'job', 'remote', 'work with', 'roles', 'why hire', 'engineering skills'],
       answers: [
-        'Oscar is positioned for AI engineering, data analytics, automation, business intelligence, and operational decision-support roles.',
-        'Oscar can bring value in roles involving AI tools, analytics systems, workflow automation, reporting, dashboards, and process optimization.',
-        'For hiring conversations, the strongest fit is work that combines data, AI, automation, and decision support for business teams.'
+        'Oscar’s strongest fit is applied AI engineering, data analytics, workflow automation, and governed decision-support work. He combines technical delivery with process improvement, stakeholder communication, and a human-in-the-loop approach.'
       ]
     },
     {
@@ -301,19 +462,42 @@
       label: 'AI system comparison',
       keywords: ['chatgpt', 'different from chatgpt', 'why not chatgpt', 'real ai'],
       answers: [
-        'ChatGPT is general-purpose. AI Arsenal systems are focused workflows built around specific tasks, data, outputs, and decision needs.',
-        'The difference is structure. These tools are designed around repeatable business workflows, not open-ended chatting.',
-        'AI Arsenal uses AI as part of a system: inputs, rules, outputs, review flow, and business context.'
+        'ChatGPT is a general-purpose conversational system. AI Arsenal products are bounded workflows built around specific data, approved capabilities, repeatable outputs, review steps, and operational needs.'
+      ]
+    },
+    {
+      name: 'demo',
+      label: 'recommended demonstration',
+      keywords: ['which demo', 'demo should i watch', 'watch first', 'first demo', 'best demo'],
+      answers: [
+        'Start with AI Contract Reviewer for the clearest example of AI Arsenal’s evidence-backed, human-reviewed approach to decision support. Then explore Aegis or Cerebro if your interest is governed data access or knowledge workflows.'
+      ]
+    },
+    {
+      name: 'responsible',
+      label: 'responsible AI',
+      keywords: ['responsible ai', 'how does ai arsenal handle privacy', 'human led', 'human in the loop', 'privacy', 'governance', 'evidence', 'oversight', 'human review'],
+      answers: [
+        'AI Arsenal’s approach is human-led, evidence-backed, privacy-conscious, and governance-first. Systems should disclose their limits, preserve human authority, support traceability, and fail safely when confidence or integrations are insufficient.'
+      ]
+    },
+    {
+      name: 'boundaries',
+      label: 'AI Contract Reviewer boundaries',
+      keywords: ['legal advice', 'replace a lawyer', 'does this replace a lawyer', 'safe to sign', 'ai decide', 'replace human review'],
+      answers: [
+        'AI Contract Reviewer provides structured decision support and does not replace legal counsel, decide whether a contract is safe to sign, or remove the need for qualified human review.'
       ]
     },
     {
       name: 'contact',
-      label: 'contact',
-      keywords: ['contact', 'linkedin', 'email', 'connect', 'reach'],
-      answers: ['You can contact Oscar through LinkedIn or by email at AI.Arsenalenterprise@gmail.com.']
+      label: 'contact AI Arsenal',
+      keywords: ['contact', 'phone number', 'call', 'linkedin', 'email', 'connect', 'reach', 'how can i contact'],
+      answers: [
+        'You can contact AI Arsenal Enterprise by calling (407) 853-9365, using the website contact form, emailing AI.Arsenalenterprise@gmail.com, or connecting with Oscar on LinkedIn.'
+      ]
     }
   ];
-
   const scoreIntent = (question, intent) => {
     return intent.keywords.reduce((score, keyword) => {
       return question.includes(keyword) ? score + keyword.length : score;
@@ -327,7 +511,7 @@
       return {
         intent: 'overview',
         label: 'AI Arsenal',
-        answer: 'I’m focused on AI Arsenal, Oscar’s AI systems, data analytics, automation, and project demos. Try asking how a system works, what problem it solves, or how it helps a team.'
+        answer: 'I can help with AI Arsenal Enterprise, Oscar, our systems, responsible-AI practices, demonstrations, and contact options. I do not have an approved answer for that topic.'
       };
     }
 
@@ -363,11 +547,7 @@
     return {
       intent: 'overview',
       label: 'AI Arsenal',
-      answer: pickAnswer([
-        'Good question. I can help with AI Arsenal systems, Oscar’s projects, automation, data analytics, and business use cases. Try asking what a system does or how it could help a team.',
-        'I’m tuned for AI Arsenal topics. Ask me about systems, business use cases, technical stack, or the live demos.',
-        'Try asking about AI Contract Reviewer, Excel Whisperer, ReadmitGuard, Oscar’s skills, or how these systems support better decisions.'
-      ])
+      answer: 'I can help with AI Arsenal Enterprise, Oscar, our systems, responsible-AI practices, demonstrations, and contact options. I do not have an approved answer for that question yet. You can call (407) 853-9365 or use the website contact form.'
     };
   };
 
@@ -398,10 +578,6 @@
     panel?.classList.remove('flex');
   });
 
-  closeButtonBottom?.addEventListener('click', () => {
-    panel?.classList.add('hidden');
-    panel?.classList.remove('flex');
-  });
 
   form?.addEventListener('submit', (event) => {
     event.preventDefault();
