@@ -87,6 +87,48 @@ import '../styles/global.css';
 
   <slot />
 
+  <!-- WAYPOINT: SITE_FOOTER -->
+  <footer class="border-t border-white/10 bg-slate-950 px-6 py-10 text-slate-300 sm:px-10 lg:px-16">
+    <div class="mx-auto grid max-w-6xl gap-8 md:grid-cols-2 md:items-start">
+      <div>
+        <p class="font-bold text-white">AI Arsenal Enterprise</p>
+        <p class="mt-2 max-w-xl text-sm leading-6 text-slate-400">
+          Human-led AI systems, analytics, and automation designed to improve decision clarity while preserving responsible oversight.
+        </p>
+      </div>
+
+      <div class="md:text-right">
+        <p class="text-sm font-semibold text-white">Contact</p>
+
+        <div class="mt-3 flex flex-col gap-2 text-sm md:items-end">
+          <a
+            href="tel:+14078539365"
+            class="transition hover:text-cyan-300"
+          >
+            (407) 853-9365
+          </a>
+
+          <a
+            href="mailto:AI.Arsenalenterprise@gmail.com"
+            class="break-all transition hover:text-cyan-300"
+          >
+            AI.Arsenalenterprise@gmail.com
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mx-auto mt-8 max-w-6xl border-t border-white/10 pt-6">
+      <p class="text-xs leading-6 text-slate-500">
+        Privacy notice: Contact information submitted through this website is used to respond to your inquiry. Please do not send passwords, confidential documents, private health information, or other sensitive data.
+      </p>
+
+      <p class="mt-3 text-xs text-slate-600">
+        © AI Arsenal Enterprise. Here am I. Send me. — Isaiah 6:8
+      </p>
+    </div>
+  </footer>
+
   <script>
     const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
     const mobileMenu = document.getElementById('mobile-menu');
