@@ -3,8 +3,7 @@
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://sophos333.github.io',
-  base: '/OscarAIArsenal/',
+  site: 'https://aiarsenalenterprise.com',
 
   vite: {
     plugins: [tailwindcss()],
