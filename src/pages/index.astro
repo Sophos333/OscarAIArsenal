@@ -7,7 +7,7 @@ const systems = [
   {
     title: 'AI Contract Reviewer',
     description:
-      'Automated contract risk analysis with key field extraction and decision-ready insights.',
+      'A first pass over contract terms, possible risks, and supporting text for human review.',
     videoUrl: 'https://www.youtube.com/embed/CkHkTkwjyb4',
     tags: ['Python', 'AI', 'Risk Analysis'],
     link: '/projects/aicr'
@@ -15,7 +15,7 @@ const systems = [
   {
     title: 'Cerebro',
     description:
-      'Secure, role-based AI knowledge engine that delivers different answers from the same source based on user role.',
+      'A demonstration of how answers from the same document change with the user’s role.',
     videoUrl: 'https://www.youtube.com/embed/jBkj_bx1O8E',
     tags: ['AI', 'RBAC', 'Security'],
     link: '/projects/cerebro'
@@ -23,7 +23,7 @@ const systems = [
   {
     title: 'Aegis',
     description:
-      'Governance-first decision intelligence system that lets executives safely query business data with auditable, read-only analytics.',
+      'A demonstration of approved, read-only queries for exploring business data.',
     videoUrl: 'https://www.youtube.com/embed/H62c5nuIJ04',
     tags: ['AI', 'Governance', 'Decision Intelligence'],
     link: '/projects/aegis'
@@ -31,21 +31,21 @@ const systems = [
   {
     title: 'Excel Whisperer',
     description:
-      'AI-powered spreadsheet automation built to reduce manual reporting and surface insights faster.',
+      'Spreadsheet analysis and reporting with Python.',
     videoUrl: 'https://www.youtube.com/embed/wH5GimNodVo',
     tags: ['Python', 'Excel', 'Automation']
   },
   {
     title: 'ReadmitGuard Manual Entry',
     description:
-      'Single-patient readmission risk prediction using manual input and AI-driven scoring.',
+      'A demonstration of readmission-risk estimation from manually entered patient data. It does not replace clinical judgment.',
     videoUrl: 'https://www.youtube.com/embed/dhHS-pOz__I',
     tags: ['Healthcare AI', 'ML', 'Prediction']
   },
   {
     title: 'ReadmitGuard CSV Batch',
     description:
-      'Batch readmission risk prediction using CSV processing for scalable healthcare analytics.',
+      'A demonstration of readmission-risk estimation for records supplied in a CSV file. It does not replace clinical judgment.',
     videoUrl: 'https://www.youtube.com/embed/NhVMz8I6Z-Y',
     tags: ['CSV', 'Healthcare', 'Analytics']
   }
@@ -60,14 +60,14 @@ const systems = [
       <div class="relative mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
         <div class="animate-[fadeIn_0.8s_ease-out]">
           <p class="mb-5 inline-flex rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-2 text-sm font-medium text-cyan-200">
-            Data - AI - Automation - Decision Systems
+            Built by Oscar Holguin-Silva
           </p>
 
           <div class="flex items-center gap-6">
             <img
-              src={`${import.meta.env.BASE_URL}images/AI_Arsenal_Logo.jpg`}
-              alt="AI Arsenal Logo"
-              class="h-36 w-36 flex-shrink-0 rounded-3xl border border-cyan-400/20 object-cover shadow-2xl shadow-cyan-500/40 sm:h-44 sm:w-44 lg:h-48 lg:w-48"
+              src={`${import.meta.env.BASE_URL}images/ai-arsenal-emblem.png`}
+              alt="AI Arsenal emblem"
+              class="h-24 w-24 flex-shrink-0 object-contain sm:h-36 sm:w-36 lg:h-48 lg:w-48"
             />
 
             <div class="leading-tight">
@@ -85,18 +85,17 @@ const systems = [
             </div>
           </div>
 
+          <p class="mt-5 text-base text-cyan-200">“Here am I. Send me.” <span class="text-sm text-slate-400">— Isaiah 6:8</span></p>
+
           <p class="mt-6 max-w-2xl text-xl leading-8 text-slate-300">
-            Building Data & AI Systems That Drive Decisions.
+            I build AI tools for contract review, data analysis, and workflow automation.
           </p>
 
           <p class="mt-5 max-w-2xl text-base leading-8 text-slate-400">
-            I turn messy workflows, scattered data, and manual reporting into clear,
-            actionable systems using analytics, automation, and AI.
+            The demos below show what each tool does, what it produces,
+            and where human review still matters.
           </p>
 
-          <p class="mt-4 text-sm text-cyan-300">
-            Focused on turning complexity into clarity for leaders and teams.
-          </p>
 
 
           <!-- WAYPOINT: TECH_STACK_CHIPS -->
@@ -144,7 +143,7 @@ const systems = [
             <div>
               <h3 class="text-2xl font-bold text-white">AI Contract Reviewer</h3>
               <p class="mt-2 text-sm text-slate-400 max-w-xl">
-                Extract risk, surface critical clauses, and generate decision-ready insights from complex contracts in seconds.
+                Review key terms, possible risks, and supporting contract language before deciding what needs closer attention.
               </p>
             </div>
 
@@ -152,7 +151,7 @@ const systems = [
               href="#systems"
               class="group inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-5 py-3 text-sm font-semibold text-cyan-200 transition-all duration-300 hover:-translate-y-1 hover:bg-cyan-400/20 hover:border-cyan-300 hover:shadow-[0_0_20px_rgba(34,211,238,0.35)]"
             >
-              <span>View Details</span>
+              <span class="text-center leading-5">Watch the demo</span>
               <span class="transition-transform duration-300 group-hover:translate-x-2">→</span>
             </a>
           </div>
@@ -160,33 +159,33 @@ const systems = [
 
           <div class="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl shadow-cyan-950/40 backdrop-blur">
           <div class="mb-5 flex items-center justify-between">
-            <p class="text-sm font-semibold text-cyan-200">AI Arsenal Control View</p>
+            <p class="text-sm font-semibold text-cyan-200">Reviewing a contract with AICR</p>
           </div>
 
           <div class="space-y-6 sm:space-y-4">
             <div class="rounded-2xl border border-white/10 bg-slate-900/80 p-5">
-              <p class="text-sm text-slate-400">Featured System</p>
-              <p class="mt-2 text-xl font-bold">AI Contract Reviewer</p>
+              <p class="text-sm text-slate-400">First pass</p>
+              <p class="mt-2 text-xl font-bold">Review the findings</p>
               <p class="mt-2 text-sm text-slate-400">
-                Contract risk analysis, key field extraction, and decision-ready summaries.
+                Read the extracted terms and possible risk flags.
               </p>
             </div>
 
               <div class="rounded-2xl border border-white/10 bg-slate-900/80 p-5">
-                <p class="text-sm text-slate-400">Flagship</p>
-                <p class="mt-2 font-bold">AI Contract Reviewer</p>
+                <p class="text-sm text-slate-400">Supporting text</p>
+                <p class="mt-2 font-bold">Check the contract wording</p>
               </div>
 
 
               <div class="rounded-2xl border border-white/10 bg-slate-900/80 p-5">
-                <p class="text-sm text-slate-400">Focus</p>
-                <p class="mt-2 font-bold">Decision Clarity</p>
+                <p class="text-sm text-slate-400">Human review</p>
+                <p class="mt-2 font-bold">Decide what needs attention</p>
               </div>
             </div>
 
             <div class="mt-5 rounded-2xl border border-cyan-400/20 bg-cyan-400/10 p-5">
               <p class="text-sm text-cyan-100">
-                Mission: build tools that reduce manual work, reveal risk, and help leaders act with confidence.
+                AICR supports your review. It does not provide legal advice or make signing decisions.
               </p>
             </div>
           </div>
@@ -202,7 +201,7 @@ const systems = [
         </p>
 
         <h2 class="mt-4 text-3xl font-bold sm:text-4xl">
-          Live demos built for analysis, automation, and action.
+          Watch the tools in use.
         </h2>
 
         <div class="mt-10 grid gap-8 lg:grid-cols-2">
