@@ -51,7 +51,7 @@ export const intents: SophosIntent[] = [
   {
     name: 'founder',
     label: 'Oscar Holguin Silva',
-    keywords: ['who is oscar', 'about oscar', 'oscar holguin', 'founder', 'owner', 'oscars background', 'former soldier'],
+    keywords: ['who is oscar', 'about oscar', 'oscar holguin', 'founder', 'owner', 'oscars background', 'former soldier', 'what does oscar do', 'what does oscar build', 'what does oscar do for work'],
     answers: [
       'Oscar Holguin Silva is the founder and principal builder behind AI Arsenal Enterprise. He is a former U.S. Army soldier and an applied AI, data, automation, and web professional who builds human-led systems for operational clarity, responsible decision support, and reduced manual work.'
     ]
@@ -69,7 +69,7 @@ export const intents: SophosIntent[] = [
     label: 'AI Contract Reviewer',
     keywords: ['contract', 'reviewer', 'risk analysis', 'agreement', 'clause', 'aicr'],
     answers: [
-      'AI Contract Reviewer provides a structured first pass over agreements. It surfaces risk signals, extracts important terms, supports source-aware review, and produces evidence-backed summaries for human evaluation.'
+      'AI Contract Reviewer provides a structured first pass over PDF and TXT agreements. It extracts key fields, flags possible risks, shows supporting contract text for review, can compare two agreements, and can export structured review results for human evaluation.'
     ]
   },
   {
@@ -85,7 +85,7 @@ export const intents: SophosIntent[] = [
     label: 'Aegis',
     keywords: ['aegis', 'what business problem does aegis solve', 'governed data', 'read only sql', 'safe data access'],
     answers: [
-      'Aegis is a governed data-access and decision-support system designed around safe, read-only workflows, explicit authority boundaries, and auditable outputs.'
+      'Aegis uses approved analytical templates to run SELECT-only queries against a single governed SQL view. It blocks write operations, free-form SQL, schema crawling, and multi-statement execution, and records execution details for audit review.'
     ]
   },
   {
@@ -93,7 +93,7 @@ export const intents: SophosIntent[] = [
     label: 'Cerebro',
     keywords: ['cerebro', 'what business problem does cerebro solve', 'knowledge assistant', 'knowledge retrieval', 'local knowledge'],
     answers: [
-      'Cerebro is AI Arsenal’s privacy-conscious knowledge assistant for working with approved information and helping users retrieve useful answers from controlled sources. Its broader productization is still in progress.'
+      'Cerebro is a local-first, role-based knowledge prototype. Its demo checks Employee, Manager, HR, and Executive roles against document access rules so permitted information can be shown while unauthorized roles receive an access-denied response.'
     ]
   },
   {
@@ -131,7 +131,7 @@ export const intents: SophosIntent[] = [
   {
     name: 'hiring',
     label: 'working with Oscar',
-    keywords: ['hire', 'available', 'recruiter', 'job', 'remote', 'work with', 'roles', 'why hire', 'engineering skills'],
+    keywords: ['hire', 'available', 'recruiter', 'job', 'remote', 'work with', 'roles', 'why hire', 'engineering skills', 'how can oscar help', 'what can oscar help with', 'how could oscar help'],
     answers: [
       'Oscar’s strongest fit is applied AI engineering, data analytics, workflow automation, and governed decision-support work. He combines technical delivery with process improvement, stakeholder communication, and a human-in-the-loop approach.'
     ]
