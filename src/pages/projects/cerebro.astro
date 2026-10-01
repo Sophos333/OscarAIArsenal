@@ -9,11 +9,11 @@ import Layout from '../../layouts/Layout.astro';
     <section class="mx-auto max-w-5xl text-center">
       <h1 class="text-4xl md:text-5xl font-bold">
       <p class="text-cyan-400 text-sm tracking-[0.3em] mb-4">CEREBRO</p>
-        Same question. Same document. Different answers.
+        The same internal information, filtered by role.
       </h1>
 
       <p class="mt-4 text-slate-400 max-w-2xl mx-auto">
-        Cerebro is a secure, role-based AI knowledge engine that controls how information is delivered across an organization.
+        Cerebro is a local-first, role-based knowledge prototype that checks a selected role against document access rules before showing restricted information.
       </p>
 
       <div class="mt-10 rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-cyan-900/30">
@@ -31,29 +31,29 @@ import Layout from '../../layouts/Layout.astro';
     <section class="mt-20 mx-auto max-w-6xl grid md:grid-cols-3 gap-8">
 
       <div class="bg-white/5 p-6 rounded-2xl border border-white/10">
-        <h3 class="text-xl font-semibold text-cyan-400">Problem</h3>
+        <h3 class="text-xl font-semibold text-cyan-400">Role-based access</h3>
         <ul class="mt-4 text-slate-400 space-y-2 text-sm">
-          <li>Too much access to sensitive data</li>
-          <li>Employees struggle to find information</li>
-          <li>Decision-making slows down</li>
+          <li>Employee, Manager, HR, and Executive roles</li>
+          <li>Documents define which roles may view them</li>
+          <li>Restricted documents return an access-denied response</li>
         </ul>
       </div>
 
       <div class="bg-white/5 p-6 rounded-2xl border border-white/10">
-        <h3 class="text-xl font-semibold text-cyan-400">Solution</h3>
+        <h3 class="text-xl font-semibold text-cyan-400">Local-first controls</h3>
         <ul class="mt-4 text-slate-400 space-y-2 text-sm">
-          <li>Role-aware AI responses</li>
-          <li>Same source, different outputs</li>
-          <li>Dynamic access control</li>
+          <li>Role checks happen before document content is shown</li>
+          <li>Deny-by-default access logic</li>
+          <li>External network access disabled by default</li>
         </ul>
       </div>
 
       <div class="bg-white/5 p-6 rounded-2xl border border-white/10">
-        <h3 class="text-xl font-semibold text-cyan-400">Outcome</h3>
+        <h3 class="text-xl font-semibold text-cyan-400">Demo behavior</h3>
         <ul class="mt-4 text-slate-400 space-y-2 text-sm">
-          <li>Faster decisions</li>
-          <li>Zero data leaks</li>
-          <li>Clear accountability</li>
+          <li>Same source can produce different access outcomes by role</li>
+          <li>Authorized roles can view permitted information</li>
+          <li>Unauthorized roles are blocked</li>
         </ul>
       </div>
 
@@ -64,24 +64,24 @@ import Layout from '../../layouts/Layout.astro';
       <h2 class="text-3xl font-bold">How It Works</h2>
 
       <p class="mt-4 text-slate-400">
-        Cerebro dynamically adjusts responses based on the user's role. Instead of controlling access alone, it controls understanding.
+        Cerebro checks the selected role against the access rules attached to the chosen document. The same document may be available to one role and denied to another.
       </p>
 
       <div class="mt-10 grid md:grid-cols-3 gap-6">
 
         <div class="bg-white/5 p-5 rounded-xl border border-white/10">
           <p class="font-semibold">Employees</p>
-          <p class="text-sm text-slate-400 mt-2">General safe information</p>
+          <p class="text-sm text-slate-400 mt-2">General or permitted internal information</p>
         </div>
 
         <div class="bg-white/5 p-5 rounded-xl border border-white/10">
           <p class="font-semibold">Managers / HR</p>
-          <p class="text-sm text-slate-400 mt-2">Operational insights</p>
+          <p class="text-sm text-slate-400 mt-2">Documents permitted for Manager or HR access</p>
         </div>
 
         <div class="bg-white/5 p-5 rounded-xl border border-white/10">
           <p class="font-semibold">Executives</p>
-          <p class="text-sm text-slate-400 mt-2">Full strategic visibility</p>
+          <p class="text-sm text-slate-400 mt-2">Documents permitted for Executive access</p>
         </div>
 
       </div>
@@ -89,14 +89,14 @@ import Layout from '../../layouts/Layout.astro';
 
     <!-- CTA -->
     <section class="mt-24 text-center">
-      <h2 class="text-2xl font-bold text-white drop-shadow-[0_0_10px_rgba(34,211,238,0.4)]">Built for real organizations</h2>
+      <h2 class="text-2xl font-bold text-white drop-shadow-[0_0_10px_rgba(34,211,238,0.4)]">See role-based access in action</h2>
 
       <p class="mt-4 text-slate-400">
-        Secure. Role-aware. On-prem. Designed for teams that need clarity without compromise.
+        The demo shows how document visibility changes across Employee, Manager, HR, and Executive roles in a local-first workflow.
       </p>
 
       <a href={`${import.meta.env.BASE_URL}#contact`} class="group inline-flex items-center gap-2 mt-8 px-6 py-3 rounded-full border border-cyan-400/30 bg-cyan-400/10 text-sm font-semibold text-cyan-300 transition-all duration-300 hover:bg-cyan-400/20 hover:border-cyan-300 hover:shadow-[0_0_25px_rgba(34,211,238,0.45)] hover:-translate-y-1">
-        <span>Let's build something like this</span><span class='transition-transform duration-300 group-hover:translate-x-2'>→</span>
+        <span>Ask about Cerebro</span><span class='transition-transform duration-300 group-hover:translate-x-2'>→</span>
       </a>
     </section>
 
