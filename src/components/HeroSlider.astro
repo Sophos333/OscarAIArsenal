@@ -1,0 +1,62 @@
+---
+import Carousel from './Carousel.astro';
+
+const { slides } = Astro.props;
+---
+
+<div class="w-full max-w-[560px] justify-self-end rounded-2xl border border-white/10 bg-slate-900/45 p-4 shadow-lg shadow-cyan-950/20 backdrop-blur sm:p-5">
+  <Carousel id="hero-product-carousel" label="Current AI Arsenal products" count={slides.length}>
+    <Fragment slot="selectors">
+      <div class="flex gap-5 border-b border-white/10" aria-label="Choose a product">
+        {slides.map((slide, index) => (
+          <button
+            type="button"
+            data-carousel-goto={index}
+            hidden
+            aria-pressed={index === 0 ? 'true' : 'false'}
+            class="relative -mb-px border-b-2 border-transparent px-0 pb-2 text-sm font-semibold text-slate-400 transition hover:text-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300 aria-[pressed=true]:border-cyan-300 aria-[pressed=true]:text-cyan-100"
+          >
+            {slide.title === 'AI Contract Reviewer' ? 'AICR' : slide.title}
+          </button>
+        ))}
+      </div>
+    </Fragment>
+
+    {slides.map((slide, index) => (
+      <article
+        data-carousel-slide
+        data-slide-label={slide.title}
+        role="group"
+        aria-roledescription="slide"
+        aria-label={`${index + 1} of ${slides.length}: ${slide.title}`}
+        class="overflow-hidden"
+      >
+        <div class="flex h-[200px] items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-slate-950 sm:h-[220px]">
+          <img
+            src={slide.image.src}
+            width={slide.image.width}
+            height={slide.image.height}
+            alt={slide.imageAlt}
+            loading={index === 0 ? 'eager' : 'lazy'}
+            decoding="async"
+            fetchpriority={index === 0 ? 'high' : 'auto'}
+            class="h-full w-full object-contain"
+          />
+        </div>
+
+        <div class="pt-4">
+          <h2 class="text-xl font-bold text-white">{slide.title}</h2>
+          <p class="mt-2 text-sm leading-6 text-slate-300">{slide.description}</p>
+
+          <a
+            href={slide.href}
+            class="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-cyan-200 underline decoration-cyan-400/30 underline-offset-4 transition hover:text-cyan-100 hover:decoration-cyan-300"
+          >
+            View workflow
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </article>
+    ))}
+  </Carousel>
+</div>

@@ -1,0 +1,72 @@
+---
+import Carousel from './Carousel.astro';
+
+const {
+  id,
+  product,
+  boundary,
+  slides,
+  accent = 'cyan',
+} = Astro.props;
+
+const isAmber = accent === 'amber';
+---
+
+<section id={id} class="mx-auto w-full max-w-[760px] scroll-mt-24">
+  <div class="mb-4">
+    <h3 class="text-2xl font-bold text-white sm:text-3xl">{product}</h3>
+
+    <p class:list={[
+      'mt-2 text-sm leading-6',
+      isAmber ? 'text-amber-100/75' : 'text-cyan-100/75',
+    ]}>
+      {boundary}
+    </p>
+  </div>
+
+  <Carousel id={`${id}-carousel`} label={`${product} workflow screenshots`} count={slides.length}>
+    {slides.map((slide, index) => (
+      <article
+        data-carousel-slide
+        data-slide-label={slide.title}
+        role="group"
+        aria-roledescription="slide"
+        aria-label={`${index + 1} of ${slides.length}: ${slide.title}`}
+        class="rounded-2xl border border-white/10 bg-slate-900/55 p-4"
+      >
+        <div class="flex h-[200px] items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-slate-950 sm:h-[260px] lg:h-[300px]">
+          <img
+            src={slide.image.src}
+            width={slide.image.width}
+            height={slide.image.height}
+            alt={slide.imageAlt}
+            loading="lazy"
+            decoding="async"
+            class="max-h-full w-full object-contain"
+          />
+        </div>
+
+        <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <h4 class="text-lg font-bold text-white">{slide.title}</h4>
+            <p class="mt-1 max-w-2xl text-sm leading-6 text-slate-300">{slide.caption}</p>
+          </div>
+
+          <a
+            href={slide.image.src}
+            target="_blank"
+            rel="noopener noreferrer"
+            class:list={[
+              'shrink-0 text-xs font-semibold underline underline-offset-4 transition',
+              isAmber
+                ? 'text-amber-200 decoration-amber-400/30 hover:text-amber-100'
+                : 'text-cyan-200 decoration-cyan-400/30 hover:text-cyan-100',
+            ]}
+          >
+            Open full-size screenshot
+          </a>
+        </div>
+      </article>
+    ))}
+  </Carousel>
+</section>

@@ -1,0 +1,247 @@
+---
+interface Props {
+  id: string;
+  label: string;
+  count: number;
+}
+
+const { id, label, count } = Astro.props;
+---
+
+<div
+  id={id}
+  class="carousel-root"
+  data-carousel
+  role="region"
+  aria-roledescription="carousel"
+  aria-label={label}
+>
+  <div class="mb-3">
+    <slot name="selectors" />
+  </div>
+
+  <div class="carousel-shell">
+    <div
+      class="carousel-track"
+      data-carousel-track
+      tabindex="0"
+      aria-label={`${label} slides`}
+    >
+      <slot />
+    </div>
+  </div>
+
+  <div class="mt-3 flex items-center justify-between gap-3">
+    <button
+      type="button"
+      class="carousel-control"
+      data-carousel-prev
+      hidden
+      aria-label={`Show previous slide in ${label}`}
+    >
+      ← Previous
+    </button>
+
+    <p
+      class="min-w-0 flex-1 text-center text-xs font-medium text-slate-500 sm:text-sm"
+      data-carousel-status
+      aria-live="polite"
+      aria-atomic="true"
+    >
+      Step 1 of {count}
+    </p>
+
+    <button
+      type="button"
+      class="carousel-control"
+      data-carousel-next
+      hidden
+      aria-label={`Show next slide in ${label}`}
+    >
+      Next →
+    </button>
+  </div>
+</div>
+
+<script>
+  const initializeCarousels = () => {
+    document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
+      if (root.dataset.carouselReady === 'true') return;
+
+      const track = root.querySelector<HTMLElement>('[data-carousel-track]');
+      const slides = Array.from(root.querySelectorAll<HTMLElement>('[data-carousel-slide]'));
+      const previous = root.querySelector<HTMLButtonElement>('[data-carousel-prev]');
+      const next = root.querySelector<HTMLButtonElement>('[data-carousel-next]');
+      const status = root.querySelector<HTMLElement>('[data-carousel-status]');
+      const selectors = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-carousel-goto]'));
+
+      if (!track || slides.length === 0 || !previous || !next || !status) return;
+
+      root.dataset.carouselReady = 'true';
+      previous.hidden = false;
+      next.hidden = false;
+      selectors.forEach((selector) => {
+        selector.hidden = false;
+      });
+
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      let currentIndex = 0;
+      let settleTimer = 0;
+
+      const updateState = (index: number) => {
+        currentIndex = Math.max(0, Math.min(index, slides.length - 1));
+        const slide = slides[currentIndex];
+        const label = slide.dataset.slideLabel || `Step ${currentIndex + 1}`;
+
+        status.textContent = `Step ${currentIndex + 1} of ${slides.length} — ${label}`;
+        previous.disabled = currentIndex === 0;
+        next.disabled = currentIndex === slides.length - 1;
+
+        selectors.forEach((selector) => {
+          const selectorIndex = Number(selector.dataset.carouselGoto);
+          selector.setAttribute('aria-pressed', selectorIndex === currentIndex ? 'true' : 'false');
+        });
+      };
+
+      const nearestSlideIndex = () => {
+        let bestIndex = 0;
+        let bestDistance = Number.POSITIVE_INFINITY;
+
+        slides.forEach((slide, index) => {
+          const distance = Math.abs(slide.offsetLeft - track.scrollLeft);
+          if (distance < bestDistance) {
+            bestDistance = distance;
+            bestIndex = index;
+          }
+        });
+
+        return bestIndex;
+      };
+
+      const goTo = (index: number) => {
+        const targetIndex = Math.max(0, Math.min(index, slides.length - 1));
+        slides[targetIndex].scrollIntoView({
+          behavior: reducedMotion.matches ? 'auto' : 'smooth',
+          block: 'nearest',
+          inline: 'start',
+        });
+        updateState(targetIndex);
+      };
+
+      previous.addEventListener('click', () => goTo(currentIndex - 1));
+      next.addEventListener('click', () => goTo(currentIndex + 1));
+
+      selectors.forEach((selector) => {
+        selector.addEventListener('click', () => {
+          const index = Number(selector.dataset.carouselGoto);
+          if (Number.isFinite(index)) goTo(index);
+        });
+      });
+
+      track.addEventListener('scroll', () => {
+        window.clearTimeout(settleTimer);
+        settleTimer = window.setTimeout(() => {
+          updateState(nearestSlideIndex());
+        }, 120);
+      }, { passive: true });
+
+      track.addEventListener('keydown', (event) => {
+        if (event.target !== track) return;
+
+        if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          goTo(currentIndex + 1);
+        }
+
+        if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          goTo(currentIndex - 1);
+        }
+      });
+
+      window.addEventListener('resize', () => updateState(nearestSlideIndex()), { passive: true });
+      updateState(0);
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeCarousels, { once: true });
+  } else {
+    initializeCarousels();
+  }
+
+  document.addEventListener('astro:page-load', initializeCarousels);
+</script>
+
+<style>
+  .carousel-shell {
+    overflow: hidden;
+    border-radius: 1rem;
+  }
+
+  .carousel-track {
+    display: flex;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+  }
+
+  .carousel-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .carousel-track:focus-visible {
+    outline: 2px solid rgba(103, 232, 249, 0.8);
+    outline-offset: 4px;
+    border-radius: 1rem;
+  }
+
+  .carousel-track :global([data-carousel-slide]) {
+    flex: 0 0 100%;
+    min-width: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .carousel-control {
+    min-height: 40px;
+    min-width: 40px;
+    border-radius: 9999px;
+    border: 1px solid rgba(103, 232, 249, 0.18);
+    background: rgba(8, 47, 73, 0.28);
+    padding: 0.5rem 0.8rem;
+    color: rgb(207 250 254);
+    font-size: 0.75rem;
+    font-weight: 700;
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease;
+  }
+
+  .carousel-control:hover:not(:disabled) {
+    border-color: rgba(103, 232, 249, 0.4);
+    background: rgba(8, 145, 178, 0.14);
+  }
+
+  .carousel-control:focus-visible {
+    outline: 2px solid rgb(103 232 249);
+    outline-offset: 3px;
+  }
+
+  .carousel-control:disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .carousel-track {
+      scroll-behavior: auto;
+    }
+
+    .carousel-control {
+      transition: none;
+    }
+  }
+</style>

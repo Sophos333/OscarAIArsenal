@@ -1,7 +1,95 @@
-﻿---
+---
 import Layout from '../layouts/Layout.astro';
 import ContactSection from '../components/ContactSection.astro';
 import SophosAssistant from '../components/SophosAssistant.astro';
+import HeroSlider from '../components/HeroSlider.astro';
+import EvidenceCarousel from '../components/EvidenceCarousel.astro';
+
+import heroAicr from '../assets/evidence/hero-aicr-findings.webp';
+import heroScout from '../assets/evidence/hero-scout-results.webp';
+import aicrInput from '../assets/evidence/aicr-01-contract-input.webp';
+import aicrFindings from '../assets/evidence/aicr-02-findings.webp';
+import aicrEvidence from '../assets/evidence/aicr-03-supporting-evidence.webp';
+import aicrComparison from '../assets/evidence/aicr-04-comparison.webp';
+import scoutSetup from '../assets/evidence/scout-01-search-setup.webp';
+import scoutResults from '../assets/evidence/scout-02-validated-results.webp';
+import scoutEvaluation from '../assets/evidence/scout-03-prospect-evaluation.webp';
+import scoutEvidence from '../assets/evidence/scout-04-first-party-evidence.webp';
+
+const heroSlides = [
+  {
+    title: 'AI Contract Reviewer',
+    description:
+      'Review contract terms, possible risks, and supporting language before making a decision.',
+    image: heroAicr,
+    imageAlt: 'AI Contract Reviewer showing contract findings and supporting evidence controls.',
+    href: '#aicr-evidence',
+    cta: 'See AICR’s workflow',
+  },
+  {
+    title: 'Scout',
+    description:
+      'Find candidate companies, review their fit, and inspect first-party evidence.',
+    image: heroScout,
+    imageAlt: 'Scout showing validated company results from an Orlando property-management search.',
+    href: '#scout-evidence',
+    cta: 'See Scout’s workflow',
+  },
+];
+
+const aicrWorkflow = [
+  {
+    title: 'Load a contract',
+    caption: 'Load a PDF or TXT agreement for review.',
+    image: aicrInput,
+    imageAlt: 'AI Contract Reviewer contract upload screen with a sample NDA loaded for review.',
+  },
+  {
+    title: 'Review possible risks',
+    caption: 'Review possible risks and missing terms surfaced for human inspection.',
+    image: aicrFindings,
+    imageAlt: 'AI Contract Reviewer red-flags table showing critical and warning-level findings.',
+  },
+  {
+    title: 'Check supporting language',
+    caption: 'Inspect extracted passages and where matching language was not detected.',
+    image: aicrEvidence,
+    imageAlt: 'AI Contract Reviewer supporting evidence view showing extracted NDA passages and no renewal language detected.',
+  },
+  {
+    title: 'Compare agreements',
+    caption: 'Compare extracted contract wording side by side before deciding what needs attention.',
+    image: aicrComparison,
+    imageAlt: 'AI Contract Reviewer comparison view showing different party wording from two agreements.',
+  },
+];
+
+const scoutWorkflow = [
+  {
+    title: 'Set the search',
+    caption: 'Set the company type, location, and number of prospects to evaluate.',
+    image: scoutSetup,
+    imageAlt: 'Scout search form configured for property-management companies in Orlando, Florida.',
+  },
+  {
+    title: 'Review validated candidates',
+    caption: 'Review the candidate companies that passed the search validation checks.',
+    image: scoutResults,
+    imageAlt: 'Scout results showing 20 requested prospects, 16 evaluated candidates, and 7 accepted companies.',
+  },
+  {
+    title: 'Inspect why a prospect was kept',
+    caption: 'Review fit evidence, cautions, priority, and contact readiness before continuing.',
+    image: scoutEvaluation,
+    imageAlt: 'Scout prospect evaluation showing fit, evidence score, priority, cautions, and contact readiness.',
+  },
+  {
+    title: 'Open the first-party evidence',
+    caption: 'Inspect the first-party source pages behind the prospect research.',
+    image: scoutEvidence,
+    imageAlt: 'Scout first-party evidence view showing the source page and captured evidence highlights.',
+  },
+];
 
 const systems = [
   {
@@ -53,60 +141,56 @@ const systems = [
 ---
 
 <Layout>
-  <main class="pt-20 min-h-screen bg-slate-950 text-white">
-    <section class="relative overflow-hidden px-6 py-24 sm:px-10 lg:px-16">
+  <main class="min-h-screen bg-slate-950 pt-20 text-white">
+    <section class="relative overflow-hidden px-6 py-12 sm:px-10 lg:px-16">
       <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(124,58,237,0.35),transparent_30%),radial-gradient(circle_at_top_right,rgba(6,182,212,0.25),transparent_30%)]"></div>
 
-      <div class="relative mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
+      <div class="relative mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[520px_minmax(0,560px)] lg:justify-between">
         <div class="animate-[fadeIn_0.8s_ease-out]">
-          <p class="mb-5 inline-flex rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-2 text-sm font-medium text-cyan-200">
+          <p class="mb-4 inline-flex rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-2 text-sm font-medium text-cyan-200">
             Built by Oscar Holguin-Silva
           </p>
 
-          <div class="flex items-center gap-6">
+          <div class="flex items-center gap-5">
             <img
               src={`${import.meta.env.BASE_URL}images/ai-arsenal-emblem.png`}
               alt="AI Arsenal emblem"
-              class="h-24 w-24 flex-shrink-0 object-contain sm:h-36 sm:w-36 lg:h-48 lg:w-48"
+              class="h-24 w-24 flex-shrink-0 object-contain sm:h-32 sm:w-32 lg:h-36 lg:w-36"
             />
 
-            <div class="leading-tight">
-              <h1 class="text-5xl font-extrabold sm:text-6xl lg:text-7xl">
-                <span class="bg-gradient-to-r from-white via-cyan-200 to-cyan-400 bg-clip-text text-transparent">
-                  AI
-                </span>
-              </h1>
-
-              <h1 class="-mt-2 text-5xl font-extrabold sm:text-6xl lg:text-7xl">
-                <span class="bg-gradient-to-r from-white via-cyan-200 to-cyan-400 bg-clip-text text-transparent">
-                  Arsenal
-                </span>
-              </h1>
-            </div>
+            <h1 class="text-5xl font-extrabold leading-[0.9] sm:text-6xl lg:text-6xl">
+              <span class="bg-gradient-to-r from-white via-cyan-200 to-cyan-400 bg-clip-text text-transparent">
+                AI
+              </span>
+              <span class="block bg-gradient-to-r from-white via-cyan-200 to-cyan-400 bg-clip-text text-transparent">
+                Arsenal
+              </span>
+            </h1>
           </div>
 
-          <p class="mt-5 text-base text-cyan-200">“Here am I. Send me.” <span class="text-sm text-slate-400">— Isaiah 6:8</span></p>
+          <p class="mt-4 text-base text-cyan-200">
+            “Here am I. Send me.”
+            <span class="text-sm text-slate-400">— Isaiah 6:8</span>
+          </p>
 
-          <p class="mt-6 max-w-2xl text-xl leading-8 text-slate-300">
+          <p class="mt-4 max-w-2xl text-xl leading-8 text-slate-300">
             I build AI tools for contract review, data analysis, and workflow automation.
           </p>
 
-          <p class="mt-5 max-w-2xl text-base leading-8 text-slate-400">
+          <p class="mt-4 max-w-2xl text-base leading-7 text-slate-400">
             The demos below show what each tool does, what it produces,
             and where human review still matters.
           </p>
 
-
-
-          <!-- WAYPOINT: TECH_STACK_CHIPS -->
           <div class="mt-4 flex flex-wrap gap-2">
-            {["Python", "SQL", "Streamlit", "FastAPI", "AI Systems"].map((tech) => (
+            {["Python", "SQL", "Streamlit", "FastAPI"].map((tech) => (
               <span class="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-xs font-semibold text-cyan-200">
                 {tech}
               </span>
             ))}
           </div>
-          <div class="mt-10 flex flex-col gap-4 sm:flex-row sm:gap-6">
+
+          <div class="mt-6 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
             <a
               href="#systems"
               class="rounded-full bg-cyan-400 px-6 py-3 text-center text-sm font-bold text-slate-950 transition-all duration-300 hover:-translate-y-1 hover:bg-cyan-300 hover:shadow-[0_0_20px_rgba(6,182,212,0.35)]"
@@ -116,84 +200,53 @@ const systems = [
 
             <a
               href="#contact"
-              class="group inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-center text-sm font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-white/10 hover:border-white/30 hover:shadow-[0_0_20px_rgba(255,255,255,0.15)]"
+              class="group inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-center text-sm font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:border-white/30 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.15)]"
             >
-              <span>Contact</span><span class="transition-transform duration-300 group-hover:translate-x-2">→</span>
+              <span>Contact</span>
+              <span class="transition-transform duration-300 group-hover:translate-x-2">→</span>
             </a>
 
             <a
               href="https://github.com/Sophos333"
               target="_blank"
               rel="noopener noreferrer"
-              class="group inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-center text-sm font-bold text-white transition-all duration-300 hover:bg-white/10 hover:border-white/30 hover:shadow-[0_0_20px_rgba(6,182,212,0.25)] hover:-translate-y-1"
+              class="text-center text-sm font-semibold text-slate-400 underline decoration-white/20 underline-offset-4 transition hover:text-white hover:decoration-white/50"
             >
-              <span>GitHub</span>
-              <span class="transition-transform duration-300 group-hover:translate-x-2">→</span>
+              GitHub projects
             </a>
           </div>
         </div>
 
-        <div class="space-y-14 lg:space-y-10">
+        <HeroSlider slides={heroSlides} />
+      </div>
+    </section>
 
-        <!-- WAYPOINT: HERO_FEATURED_AICR -->
-        <div class="mt-12 rounded-3xl border border-cyan-400/20 bg-gradient-to-r from-slate-900/80 to-slate-900/40 p-6 backdrop-blur shadow-xl shadow-cyan-900/30">
-          <p class="text-xs tracking-widest text-cyan-300">FEATURED SYSTEM</p>
+    <section id="workflows" class="border-y border-white/5 bg-slate-900/20 px-6 py-16 sm:px-10 lg:px-16">
+      <div class="mx-auto max-w-[1120px]">
+        <h2 class="text-center text-3xl font-bold sm:text-4xl">
+          AICR and Scout, step by step.
+        </h2>
 
-          <div class="mt-3 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <h3 class="text-2xl font-bold text-white">AI Contract Reviewer</h3>
-              <p class="mt-2 text-sm text-slate-400 max-w-xl">
-                Review key terms, possible risks, and supporting contract language before deciding what needs closer attention.
-              </p>
-            </div>
+        <div class="mt-10 space-y-12">
+          <EvidenceCarousel
+            id="aicr-evidence"
+            product="AI Contract Reviewer"
+            boundary="AICR supports your review. It does not provide legal advice or make signing decisions."
+            slides={aicrWorkflow}
+            accent="cyan"
+          />
 
-            <a
-              href="#systems"
-              class="group inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-5 py-3 text-sm font-semibold text-cyan-200 transition-all duration-300 hover:-translate-y-1 hover:bg-cyan-400/20 hover:border-cyan-300 hover:shadow-[0_0_20px_rgba(34,211,238,0.35)]"
-            >
-              <span class="text-center leading-5">Watch the demo</span>
-              <span class="transition-transform duration-300 group-hover:translate-x-2">→</span>
-            </a>
-          </div>
-        </div>
-
-          <div class="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl shadow-cyan-950/40 backdrop-blur">
-          <div class="mb-5 flex items-center justify-between">
-            <p class="text-sm font-semibold text-cyan-200">Reviewing a contract with AICR</p>
-          </div>
-
-          <div class="space-y-6 sm:space-y-4">
-            <div class="rounded-2xl border border-white/10 bg-slate-900/80 p-5">
-              <p class="text-sm text-slate-400">First pass</p>
-              <p class="mt-2 text-xl font-bold">Review the findings</p>
-              <p class="mt-2 text-sm text-slate-400">
-                Read the extracted terms and possible risk flags.
-              </p>
-            </div>
-
-              <div class="rounded-2xl border border-white/10 bg-slate-900/80 p-5">
-                <p class="text-sm text-slate-400">Supporting text</p>
-                <p class="mt-2 font-bold">Check the contract wording</p>
-              </div>
-
-
-              <div class="rounded-2xl border border-white/10 bg-slate-900/80 p-5">
-                <p class="text-sm text-slate-400">Human review</p>
-                <p class="mt-2 font-bold">Decide what needs attention</p>
-              </div>
-            </div>
-
-            <div class="mt-5 rounded-2xl border border-cyan-400/20 bg-cyan-400/10 p-5">
-              <p class="text-sm text-cyan-100">
-                AICR supports your review. It does not provide legal advice or make signing decisions.
-              </p>
-            </div>
-          </div>
+          <EvidenceCarousel
+            id="scout-evidence"
+            product="Scout"
+            boundary="Review the evidence and contact route before deciding to reach out."
+            slides={scoutWorkflow}
+            accent="amber"
+          />
         </div>
       </div>
     </section>
 
-    <!-- WAYPOINT: FEATURED_SYSTEMS_WITH_VIDEO -->
     <section id="systems" class="px-6 py-20 sm:px-10 lg:px-16">
       <div class="mx-auto max-w-7xl">
         <p class="text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
@@ -232,14 +285,16 @@ const systems = [
                     </span>
                   ))}
                 </div>
-              {system.link && (
-                <a
-                  href={`${import.meta.env.BASE_URL}${system.link.replace(/^\//, "")}`}
-                  class="group inline-flex items-center gap-2 mt-6 px-5 py-2.5 rounded-full border border-cyan-400/30 bg-cyan-400/10 text-sm font-semibold text-cyan-300 transition-all duration-300 hover:bg-cyan-400/20 hover:border-cyan-300 hover:shadow-[0_0_20px_rgba(34,211,238,0.35)] hover:-translate-y-1"
-                >
-                  <span>View Details</span><span class="transition-transform duration-300 group-hover:translate-x-2">→</span>
-                </a>
-              )}
+
+                {system.link && (
+                  <a
+                    href={`${import.meta.env.BASE_URL}${system.link.replace(/^\//, "")}`}
+                    class="group mt-6 inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-400/10 px-5 py-2.5 text-sm font-semibold text-cyan-300 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300 hover:bg-cyan-400/20 hover:shadow-[0_0_20px_rgba(34,211,238,0.35)]"
+                  >
+                    <span>View Details</span>
+                    <span class="transition-transform duration-300 group-hover:translate-x-2">→</span>
+                  </a>
+                )}
               </div>
             </article>
           ))}
@@ -248,7 +303,7 @@ const systems = [
     </section>
 
     <ContactSection />
-	<SophosAssistant />
+    <SophosAssistant />
   </main>
 
   <style>
@@ -265,29 +320,3 @@ const systems = [
     }
   </style>
 </Layout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
