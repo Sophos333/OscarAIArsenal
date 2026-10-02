@@ -87,6 +87,7 @@ const { id, label, count } = Astro.props;
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
       let currentIndex = 0;
       let settleTimer = 0;
+      let programmaticTargetIndex: number | null = null;
 
       const updateState = (index: number) => {
         currentIndex = Math.max(0, Math.min(index, slides.length - 1));
@@ -104,28 +105,36 @@ const { id, label, count } = Astro.props;
       };
 
       const nearestSlideIndex = () => {
-        let bestIndex = 0;
-        let bestDistance = Number.POSITIVE_INFINITY;
+        const slideWidth = track.clientWidth;
 
-        slides.forEach((slide, index) => {
-          const distance = Math.abs(slide.offsetLeft - track.scrollLeft);
-          if (distance < bestDistance) {
-            bestDistance = distance;
-            bestIndex = index;
-          }
-        });
+        if (slideWidth <= 0) {
+          return currentIndex;
+        }
 
-        return bestIndex;
+        return Math.max(
+          0,
+          Math.min(
+            Math.round(track.scrollLeft / slideWidth),
+            slides.length - 1
+          )
+        );
       };
 
       const goTo = (index: number) => {
         const targetIndex = Math.max(0, Math.min(index, slides.length - 1));
-        slides[targetIndex].scrollIntoView({
-          behavior: reducedMotion.matches ? 'auto' : 'smooth',
-          block: 'nearest',
-          inline: 'start',
-        });
+        const targetLeft = targetIndex * track.clientWidth;
+
+        programmaticTargetIndex = targetIndex;
         updateState(targetIndex);
+
+        track.scrollTo({
+          left: targetLeft,
+          behavior: reducedMotion.matches ? 'auto' : 'smooth',
+        });
+
+        if (reducedMotion.matches) {
+          programmaticTargetIndex = null;
+        }
       };
 
       previous.addEventListener('click', () => goTo(currentIndex - 1));
@@ -140,10 +149,38 @@ const { id, label, count } = Astro.props;
 
       track.addEventListener('scroll', () => {
         window.clearTimeout(settleTimer);
+
         settleTimer = window.setTimeout(() => {
-          updateState(nearestSlideIndex());
+          const visibleIndex = nearestSlideIndex();
+
+          if (programmaticTargetIndex !== null) {
+            const targetLeft =
+              programmaticTargetIndex * track.clientWidth;
+
+            const tolerance = Math.max(
+              2,
+              track.clientWidth * 0.02
+            );
+
+            if (Math.abs(track.scrollLeft - targetLeft) <= tolerance) {
+              updateState(programmaticTargetIndex);
+              programmaticTargetIndex = null;
+            }
+
+            return;
+          }
+
+          updateState(visibleIndex);
         }, 120);
       }, { passive: true });
+
+      const cancelProgrammaticScroll = () => {
+        programmaticTargetIndex = null;
+      };
+
+      track.addEventListener('pointerdown', cancelProgrammaticScroll, { passive: true });
+      track.addEventListener('touchstart', cancelProgrammaticScroll, { passive: true });
+      track.addEventListener('wheel', cancelProgrammaticScroll, { passive: true });
 
       track.addEventListener('keydown', (event) => {
         if (event.target !== track) return;
@@ -159,7 +196,15 @@ const { id, label, count } = Astro.props;
         }
       });
 
-      window.addEventListener('resize', () => updateState(nearestSlideIndex()), { passive: true });
+      window.addEventListener('resize', () => {
+        track.scrollTo({
+          left: currentIndex * track.clientWidth,
+          behavior: 'auto',
+        });
+
+        updateState(currentIndex);
+      }, { passive: true });
+
       updateState(0);
     });
   };
