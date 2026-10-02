@@ -21,8 +21,9 @@ export const blockedTopics: string[] = [
 export const suggestions: SophosSuggestionMap = {
   overview: ['Who is Oscar?', 'What systems has AI Arsenal built?', 'Which demo should I watch first?'],
   founder: ['What systems has Oscar built?', 'Why should someone hire Oscar?', 'How can I contact AI Arsenal?'],
-  systems: ['What is AI Contract Reviewer?', 'What is Warhorn?', 'What is Aegis?'],
+  systems: ['What is AI Contract Reviewer?', 'What is Scout?', 'What is Aegis?'],
   contract: ['Does this replace a lawyer?', 'How does this work under the hood?', 'Which demo should I watch first?'],
+  scout: ['How does Scout validate prospects?', 'What evidence does Scout use?', 'Which demo should I watch first?'],
   warhorn: ['How will Warhorn handle missed calls?', 'How can I contact AI Arsenal?', 'What systems has AI Arsenal built?'],
   aegis: ['What business problem does Aegis solve?', 'What is responsible AI?', 'What systems has AI Arsenal built?'],
   cerebro: ['What business problem does Cerebro solve?', 'What is responsible AI?', 'What systems has AI Arsenal built?'],
@@ -45,7 +46,7 @@ export const intents: SophosIntent[] = [
     label: 'AI Arsenal Enterprise',
     keywords: ['hi', 'hello', 'hey', 'ai arsenal', 'ai arsenal enterprise', 'what is this', 'what do you do', 'what is this site', 'what am i looking at', 'company', 'help'],
     answers: [
-      'AI Arsenal Enterprise is a human-led applied AI company building governed systems for contract review, customer communications, analytics, knowledge retrieval, automation, and decision support. The goal is to reduce manual work, surface useful evidence, and keep people in control of important decisions.'
+      'AI Arsenal Enterprise is Oscar Holguin-Silva\'s applied AI portfolio and product studio. AICR surfaces contract terms and supporting language for human review, Scout validates prospect companies against first-party evidence, Aegis constrains business-data queries, and Cerebro demonstrates role-based document access.'
     ]
   },
   {
@@ -61,7 +62,7 @@ export const intents: SophosIntent[] = [
     label: 'AI Arsenal systems',
     keywords: ['projects', 'systems', 'what has oscar built', 'what systems has oscar built', 'what systems has ai arsenal built', 'portfolio', 'tools', 'products', 'demos'],
     answers: [
-      'AI Arsenal’s system family includes AI Contract Reviewer, Warhorn, Aegis, Cerebro, Excel Whisperer, and ReadmitGuard. They address contract review, customer communications, governed data access, knowledge retrieval, spreadsheet intelligence, and predictive analytics. Some are demonstrated on this site while others are still being developed and tested.'
+      'AI Arsenal systems include AI Contract Reviewer, Scout, Warhorn, Aegis, Cerebro, Excel Whisperer, and ReadmitGuard. AICR supports contract review with source evidence. Scout validates prospect companies against first-party evidence. Aegis constrains business-data queries. Cerebro demonstrates role-based document access. The other systems cover communications, spreadsheet analysis, and predictive analytics.'
     ]
   },
   {
@@ -70,6 +71,23 @@ export const intents: SophosIntent[] = [
     keywords: ['contract', 'reviewer', 'risk analysis', 'agreement', 'clause', 'aicr'],
     answers: [
       'AI Contract Reviewer provides a structured first pass over PDF and TXT agreements. It extracts key fields, flags possible risks, shows supporting contract text for review, can compare two agreements, and can export structured review results for human evaluation.'
+    ]
+  },
+  {
+    name: 'scout',
+    label: 'Scout',
+    keywords: [
+      'scout',
+      'prospect',
+      'prospecting',
+      'lead intelligence',
+      'validate prospects',
+      'validated prospects',
+      'first party evidence',
+      'company research'
+    ],
+    answers: [
+      'Scout evaluates candidate companies, checks their fit, validates them against first-party website evidence, and shows why a prospect was kept before a person decides whether to reach out. Scout does not pad a result set with weak candidates simply to reach the requested count.'
     ]
   },
   {
@@ -125,7 +143,7 @@ export const intents: SophosIntent[] = [
     label: 'business value',
     keywords: ['business', 'help my business', 'problems', 'solve', 'manual work', 'time save', 'replace manual', 'value'],
     answers: [
-      'AI Arsenal systems are designed to reduce manual work, improve visibility, surface important risks or patterns, and help teams make clearer decisions without surrendering human authority.'
+      'AI Arsenal products target specific operational tasks: reviewing contracts with source evidence, validating prospects before outreach, constraining business-data access, and reducing repetitive analysis. The final judgment remains with the person using the workflow.'
     ]
   },
   {
@@ -222,6 +240,19 @@ export const createIntentActions = (baseUrl: string): SophosActionMap => ({
       closePanel: true
     }
   ],
+  scout: [
+    {
+      label: 'View Scout workflow',
+      href: `${baseUrl}#scout-evidence`,
+      closePanel: true
+    },
+    {
+      label: 'Discuss Scout',
+      href: `${baseUrl}#contact`,
+      closePanel: true
+    }
+  ],
+
   warhorn: [
     {
       label: 'Discuss Warhorn',

@@ -9,7 +9,7 @@
     class="sophos-pulse sophos-orb flex h-14 w-14 items-center justify-center rounded-full border border-cyan-400/30 bg-cyan-400 text-2xl shadow-2xl shadow-cyan-900/40 transition hover:bg-cyan-300 sm:h-16 sm:w-16"
     aria-label="Open AI Arsenal System Guide"
   >
-    <img src={`${import.meta.env.BASE_URL}images/sophos-icon.png`} alt="Sophos AI assistant" class="h-9 w-9 object-contain" />
+    <img src={`${import.meta.env.BASE_URL}images/ai-arsenal-emblem.png`} alt="AI Arsenal emblem" class="h-9 w-9 object-contain" />
   </button>
 
   <div
@@ -168,7 +168,7 @@
     const typing = document.createElement('div');
     typing.id = 'sophos-typing';
     typing.className = 'max-w-[85%] rounded-2xl bg-white/5 px-3 py-2 text-slate-400';
-    typing.textContent = 'Sophos is checking the AI Arsenal guide...';
+    typing.textContent = 'Matching against AI Arsenal system knowledge...';
     messages.appendChild(typing);
     messages.scrollTop = messages.scrollHeight;
   };
@@ -221,11 +221,10 @@
     }
 
     if (['more', 'tell me more', 'explain more', 'go deeper'].includes(q) && lastIntent) {
-      const intent = intents.find((item) => item.name === lastIntent);
       return {
-        intent: intent.name,
-        label: intent.label,
-        answer: `You asked about ${lastTopicLabel} earlier. Going deeper: ${pickAnswer(intent.answers)} A strong next question is what problem this solves or which demo to watch first.`
+        intent: lastIntent,
+        label: lastTopicLabel,
+        answer: `Sophos has one approved summary for ${lastTopicLabel}. Use one of the suggested questions below to drill into a specific part of that system.`
       };
     }
 
@@ -235,9 +234,6 @@
 
     if (ranked[0].score > 0) {
       const matched = ranked[0].intent;
-      const memoryLead = lastTopicLabel && lastTopicLabel !== matched.label
-        ? "You asked about " + lastTopicLabel + " earlier. Connecting that to " + matched.label + ": "
-        : '';
 
       lastIntent = matched.name;
       lastTopicLabel = matched.label;
@@ -245,7 +241,7 @@
       return {
         intent: matched.name,
         label: matched.label,
-        answer: memoryLead + pickAnswer(matched.answers)
+        answer: pickAnswer(matched.answers)
       };
     }
 
